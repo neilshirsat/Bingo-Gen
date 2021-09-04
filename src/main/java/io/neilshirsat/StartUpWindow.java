@@ -13,6 +13,7 @@ public class StartUpWindow extends JFrame {
     public StartUpWindow() throws Exception {
         super();
         super.setUndecorated(true);
+        super.setTitle("Bingo Gen_");
         super.setSize( 800, 500);
         Screen screen = new Screen();
         super.getContentPane().add( screen );
@@ -43,7 +44,6 @@ public class StartUpWindow extends JFrame {
             } catch (Exception e) {
                 System.out.println("Font Not Initialized");
             }
-            font = new Font( Font.SANS_SERIF, Font.PLAIN, 100);
             textcolor = new Color( 255, 255, 255 );
             DragWindowListener dwl = new DragWindowListener();
             addMouseListener(dwl);
