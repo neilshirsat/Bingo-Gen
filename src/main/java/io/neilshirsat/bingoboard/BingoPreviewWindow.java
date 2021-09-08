@@ -31,14 +31,16 @@ public class BingoPreviewWindow extends JFrame {
         this.BackgroundColor = BackgroundColor;
         this.getContentPane().setBackground(BackgroundColor);
 
+        Dimension WindowDimension = Toolkit.getDefaultToolkit().getScreenSize();
+
         this.TextColor = TextColor;
         this.TitleTextColor = TitleTextColor;
         this.TitleBackgroundColor = TitleBackgroundColor;
 
         super.setUndecorated(true);
         super.setTitle("Bingo Board Preview");
-        super.setSize( 750, 900);
-        super.setResizable(false);
+        super.setSize(  (int)WindowDimension.getHeight() * 15/16 * 5/6 , (int)WindowDimension.getHeight() * 15/16);
+        //super.setResizable(false);
         super.getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
 
         bingo = new BingoGrid();
@@ -48,13 +50,11 @@ public class BingoPreviewWindow extends JFrame {
         bingo.setTitleBackgroundColor(TitleBackgroundColor);
         super.add( bingo );
 
-        Dimension WindowDimension = Toolkit.getDefaultToolkit().getScreenSize();
         super.setLocation(WindowDimension.width/2-this.getSize().width/2,
                 WindowDimension.height/2-this.getSize().height/2
         );
 
         setDefaultCloseOperation(this.HIDE_ON_CLOSE);
-        super.pack();
     }
 
     public void setPreviewBackground( Color BackgroundColor ) {

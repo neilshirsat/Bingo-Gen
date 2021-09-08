@@ -56,8 +56,9 @@ public class BingoTitleSquare extends JPanel {
         if (g instanceof Graphics2D g2d) {
             g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON );
             g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON );
+
             g2d.setPaint(BackgroundColor);
-            g2d.fillOval(0, 0, 150, 150);
+            g2d.fillOval(0, 0, getWidth(), getHeight());
         }
 
         g.setColor(TextColor);
