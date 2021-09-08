@@ -13,7 +13,7 @@ public class ColorPicker extends JFrame {
 
     public JLabel ColorPickerLabel;
 
-    public JButton UIButton;
+    private JButton UIButton;
 
     private Color SelectedColor;
 
@@ -23,13 +23,13 @@ public class ColorPicker extends JFrame {
 
     private JButton ChooseButton;
 
-    public JColorChooser ColorChooser;
+    private JColorChooser ColorChooser;
 
-    public String name;
+    private String name;
 
     private ColorAction colorAction;
 
-    public ColorPicker( String name, Color SelectedColor ) {
+    public ColorPicker(String name, Color SelectedColor ) {
         super();
 
         this.name = name;
@@ -121,12 +121,86 @@ public class ColorPicker extends JFrame {
         this.colorAction = colorAction;
     }
 
-    public JComponent getUI() {
+    public JPanel getUI() {
         return UI;
     }
 
-    public Color getColor() {
+    public void setUI(JPanel UI) {
+        this.UI = UI;
+    }
+
+    public JLabel getColorPickerLabel() {
+        return ColorPickerLabel;
+    }
+
+    public void setColorPickerLabel(JLabel colorPickerLabel) {
+        ColorPickerLabel = colorPickerLabel;
+    }
+
+    public JButton getUIButton() {
+        return UIButton;
+    }
+
+    public void setUIButton(JButton UIButton) {
+        this.UIButton = UIButton;
+    }
+
+    public Color getSelectedColor() {
         return SelectedColor;
+    }
+
+    public void setSelectedColor(Color selectedColor) {
+        SelectedColor = selectedColor;
+    }
+
+    public JPanel getRootPanel() {
+        return RootPanel;
+    }
+
+    public void setRootPanel(JPanel rootPanel) {
+        RootPanel = rootPanel;
+    }
+
+    public JButton getCloseButton() {
+        return CloseButton;
+    }
+
+    public void setCloseButton(JButton closeButton) {
+        CloseButton = closeButton;
+    }
+
+    public JButton getChooseButton() {
+        return ChooseButton;
+    }
+
+    public void setChooseButton(JButton chooseButton) {
+        ChooseButton = chooseButton;
+    }
+
+    public JColorChooser getColorChooser() {
+        return ColorChooser;
+    }
+
+    public void setColorChooser(JColorChooser colorChooser) {
+        ColorChooser = colorChooser;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public ColorAction getColorAction() {
+        return colorAction;
+    }
+
+    public void setColorAction(ColorAction colorAction) {
+        this.colorAction = colorAction;
     }
 
 }

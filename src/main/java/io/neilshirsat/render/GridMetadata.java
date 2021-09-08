@@ -80,8 +80,11 @@ public class GridMetadata {
 
     /**
      * Contains the Metadata if the Grid Squares are Uniform
+     *
+     * DO NOT DIRECTLY CHANGE THIS THIS IS SET BY THE PARSER
      */
     private UniformSquareMetadata UniformSquareMetadata;
+
 
     public boolean isDoesHaveBorder() {
         return doesHaveBorder;
