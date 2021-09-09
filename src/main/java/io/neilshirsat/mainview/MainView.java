@@ -109,10 +109,10 @@ public class MainView extends JPanel {
         });
 
         PreviewWindow = new BingoPreviewWindow(
-                BackgroundColor.getColor(),
-                TextColor.getColor(),
-                TitleColor.getColor(),
-                TitleBackgroundColor.getColor()
+                BackgroundColor.getSelectedColor(),
+                TextColor.getSelectedColor(),
+                TitleColor.getSelectedColor(),
+                TitleBackgroundColor.getSelectedColor()
         );
 
         Export = new ExportPanel();
