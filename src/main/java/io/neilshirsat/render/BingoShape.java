@@ -54,24 +54,59 @@ public class BingoShape {
      */
     private int BackgroundWidth;
 
+    /**
+     * Background Height
+     */
     private int BackgroundHeight;
 
+    /**
+     * Text Font of the Numbers
+     */
     private Font TextFont;
 
+    /**
+     * Font Size of the Numbers
+     */
     private float TextFontSize;
 
+    /**
+     * Font Color of the Numbers
+     */
     private Color TextFontColor;
 
+    /**
+     * Is the Numbers Centered in the Grid
+     */
+    private boolean isCentered;
+
+    /**
+     * X Position of the Numbers
+     */
     private int TextPositionX;
 
+    /**
+     * Y Position of the Numbers
+     */
     private int TextPositionY;
 
-    private int PreferedWidth;
+    /**
+     * Preferred Width of the Square
+     */
+    private int PreferredWidth;
 
-    private int PreferedHeight;
+    /**
+     * Preferred Height of the Square
+     */
+    private int PreferredHeight;
 
+    /**
+     * Max Width of the Square
+     */
     private int MaxWidth;
 
+    /**
+     * Max Height of the Square
+     */
     private int MaxHeight;
 
     public int getId() {
@@ -186,6 +221,14 @@ public class BingoShape {
         TextFontColor = textFontColor;
     }
 
+    public boolean isCentered() {
+        return isCentered;
+    }
+
+    public void setCentered(boolean centered) {
+        isCentered = centered;
+    }
+
     public int getTextPositionX() {
         return TextPositionX;
     }
@@ -202,20 +245,20 @@ public class BingoShape {
         TextPositionY = textPositionY;
     }
 
-    public int getPreferedWidth() {
-        return PreferedWidth;
+    public int getPreferredWidth() {
+        return PreferredWidth;
     }
 
-    public void setPreferedWidth(int preferedWidth) {
-        PreferedWidth = preferedWidth;
+    public void setPreferredWidth(int PreferredWidth) {
+        PreferredWidth = PreferredWidth;
     }
 
-    public int getPreferedHeight() {
-        return PreferedHeight;
+    public int getPreferredHeight() {
+        return PreferredHeight;
     }
 
-    public void setPreferedHeight(int preferedHeight) {
-        PreferedHeight = preferedHeight;
+    public void setPreferredHeight(int PreferredHeight) {
+        PreferredHeight = PreferredHeight;
     }
 
     public int getMaxWidth() {
