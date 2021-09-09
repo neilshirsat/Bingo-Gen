@@ -51,61 +51,35 @@ public class MainView extends JPanel {
         super.setBorder(new EmptyBorder(20, 20, 20, 20));
 
         BingoName = new TextField();
-        BingoName.label.setText("Bingo Name:");
-        BingoName.textField.setColumns(50);
+        BingoName.setLabelText("Bingo Name:");
+        BingoName.setInputColumns(50);
         BingoName.setPreferredSize(new Dimension(50, 20));
 
         BackgroundColor = new ColorPicker("Background Color", new Color(0, 174, 255));
-        BackgroundColor.setActionListener(new ColorAction() {
-            @Override
-            public void actionPerformed(Color event) {
-                System.out.println("Background Color Chosen" + event);
-                MainView.this.PreviewWindow.setPreviewBackground(event);
-            }
+        BackgroundColor.setActionListener(event -> {
+            System.out.println("Background Color Chosen" + event);
+            MainView.this.PreviewWindow.setPreviewBackground(event);
         });
 
         TextColor = new ColorPicker("Text Color", Color.WHITE);
-        TextColor.setActionListener(new ColorAction() {
-            @Override
-            public void actionPerformed(Color event) {
-                MainView.this.PreviewWindow.setPreviewTextColor(event);
-            }
-        });
+        TextColor.setActionListener(event -> MainView.this.PreviewWindow.setPreviewTextColor(event));
 
         TitleColor = new ColorPicker("Title Color", Color.BLUE);
-        TitleColor.setActionListener(new ColorAction() {
-            @Override
-            public void actionPerformed(Color event) {
-                MainView.this.PreviewWindow.setPreviewTitleTextColor(event);
-            }
-        });
+        TitleColor.setActionListener(event -> MainView.this.PreviewWindow.setPreviewTitleTextColor(event));
 
         TitleBackgroundColor = new ColorPicker("Title Background Color", Color.GREEN);
-        TitleBackgroundColor.setActionListener(new ColorAction() {
-            @Override
-            public void actionPerformed(Color event) {
-                MainView.this.PreviewWindow.setPreviewTitleBackgroundColor(event);
-            }
-        });
+        TitleBackgroundColor.setActionListener(event -> MainView.this.PreviewWindow.setPreviewTitleBackgroundColor(event));
 
         BorderColor = new ColorPicker("Border Color", Color.BLACK);
-        BorderColor.setActionListener(new ColorAction() {
-            @Override
-            public void actionPerformed(Color event) {
-                MainView.this.PreviewWindow.setPreviewBorderColor(event);
-            }
-        });
+        BorderColor.setActionListener(event -> MainView.this.PreviewWindow.setPreviewBorderColor(event));
 
         OutputFolder = new FolderChooser("Output Folder: ");
 
         PreviewButton = new JButton("Preview");
-        PreviewButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                PreviewWindow.setVisible(!PreviewWindow.isVisible());
-                PreviewButton.setText(
-                        PreviewWindow.isVisible() ? "Close Preview" : "Preview");
-            }
+        PreviewButton.addActionListener(e -> {
+            PreviewWindow.setVisible(!PreviewWindow.isVisible());
+            PreviewButton.setText(
+                    PreviewWindow.isVisible() ? "Close Preview" : "Preview");
         });
 
         PreviewWindow = new BingoPreviewWindow(
