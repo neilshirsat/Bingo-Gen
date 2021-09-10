@@ -22,7 +22,9 @@ public class BingoSquare extends JPanel {
 
     protected Color BorderColor;
 
-    public BingoSquare( String CharToPrint ) {
+    protected boolean Checked;
+
+    public BingoSquare(String CharToPrint ) {
         super();
 
         TextColor = Color.WHITE;
@@ -61,6 +63,7 @@ public class BingoSquare extends JPanel {
         if (PrintString) {
             g.drawString(CharToPrint, xCoordinate, yCoordinate);
         }
+
     }
 
     public void setSquareBackground( Color Color ){
@@ -77,4 +80,14 @@ public class BingoSquare extends JPanel {
         this.BorderColor = BorderColor;
         this.setBorder(BorderFactory.createLineBorder(BorderColor));
     }
+
+    public boolean isChecked() {
+        return Checked;
+    }
+
+    public void setChecked(boolean checked) {
+        Checked = checked;
+        repaint();
+    }
+
 }

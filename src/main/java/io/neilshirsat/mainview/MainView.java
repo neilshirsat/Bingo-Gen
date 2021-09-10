@@ -89,7 +89,7 @@ public class MainView extends JPanel {
                 TitleBackgroundColor.getSelectedColor()
         );
 
-        Export = new ExportPanel();
+        Export = new ExportPanel(this);
 
         PrintButton = new JButton("Print");
 
@@ -130,6 +130,111 @@ public class MainView extends JPanel {
         );
 
         updateUI();
+    }
+
+    @Override
+    public GroupLayout getLayout() {
+        return layout;
+    }
+
+    public void setLayout(GroupLayout layout) {
+        this.layout = layout;
+    }
+
+    public boolean isPreviewOpen() {
+        return PreviewOpen;
+    }
+
+    public void setPreviewOpen(boolean previewOpen) {
+        PreviewOpen = previewOpen;
+    }
+
+    public BingoPreviewWindow getPreviewWindow() {
+        return PreviewWindow;
+    }
+
+    public void setPreviewWindow(BingoPreviewWindow previewWindow) {
+        PreviewWindow = previewWindow;
+    }
+
+    public TextField getBingoName() {
+        return BingoName;
+    }
+
+    public void setBingoName(TextField bingoName) {
+        BingoName = bingoName;
+    }
+
+    public ColorPicker getBackgroundColor() {
+        return BackgroundColor;
+    }
+
+    public void setBackgroundColor(ColorPicker backgroundColor) {
+        BackgroundColor = backgroundColor;
+    }
+
+    public ColorPicker getTextColor() {
+        return TextColor;
+    }
+
+    public void setTextColor(ColorPicker textColor) {
+        TextColor = textColor;
+    }
+
+    public ColorPicker getTitleColor() {
+        return TitleColor;
+    }
+
+    public void setTitleColor(ColorPicker titleColor) {
+        TitleColor = titleColor;
+    }
+
+    public ColorPicker getTitleBackgroundColor() {
+        return TitleBackgroundColor;
+    }
+
+    public void setTitleBackgroundColor(ColorPicker titleBackgroundColor) {
+        TitleBackgroundColor = titleBackgroundColor;
+    }
+
+    public ColorPicker getBorderColor() {
+        return BorderColor;
+    }
+
+    public void setBorderColor(ColorPicker borderColor) {
+        BorderColor = borderColor;
+    }
+
+    public FolderChooser getOutputFolder() {
+        return OutputFolder;
+    }
+
+    public void setOutputFolder(FolderChooser outputFolder) {
+        OutputFolder = outputFolder;
+    }
+
+    public JButton getPreviewButton() {
+        return PreviewButton;
+    }
+
+    public void setPreviewButton(JButton previewButton) {
+        PreviewButton = previewButton;
+    }
+
+    public ExportPanel getExport() {
+        return Export;
+    }
+
+    public void setExport(ExportPanel export) {
+        Export = export;
+    }
+
+    public JButton getPrintButton() {
+        return PrintButton;
+    }
+
+    public void setPrintButton(JButton printButton) {
+        PrintButton = printButton;
     }
 
 }

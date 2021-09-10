@@ -5,8 +5,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import io.neilshirsat.bingoboard.BingoPreviewWindow;
 import io.neilshirsat.components.Select;
 import io.neilshirsat.components.TextField;
+import io.neilshirsat.generation.GenerateJPG;
 
 public class ExportPanel extends JFrame {
 
@@ -29,8 +31,12 @@ public class ExportPanel extends JFrame {
 
     private Select<String> FileFormat;
 
-    public ExportPanel() {
+    private MainView MainViewLogic;
+
+    public ExportPanel(MainView MainViewLogic) {
         super();
+
+        this.MainViewLogic = MainViewLogic;
 
         JMenuBar menuBar = new JMenuBar();
         JMenu File = new JMenu("File");
@@ -46,12 +52,7 @@ public class ExportPanel extends JFrame {
         );
 
         NonFrameExportButton = new JButton("Export");
-        NonFrameExportButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ExportPanel.super.setVisible(true);
-            }
-        });
+        NonFrameExportButton.addActionListener(e -> ExportPanel.super.setVisible(true));
 
         RootPanel = new JPanel();
         RootPanel.setLayout(new BorderLayout());
@@ -61,10 +62,10 @@ public class ExportPanel extends JFrame {
         OptionsPanel.setLayout(layout);
 
         TextField Name = new TextField();
-        Name.label.setText("Name");
-        Name.textField.setColumns(25);
+        Name.setLabelText("Name");
+        Name.setInputColumns(25);
 
-        FileFormat = new Select<String>(SUPPORTED_FILE_FORMAT_EXPORTS);
+        FileFormat = new Select<>(SUPPORTED_FILE_FORMAT_EXPORTS);
         FileFormat.setEditable(true);
         FileFormat.setLabel("File Format");
 
@@ -79,6 +80,16 @@ public class ExportPanel extends JFrame {
 
         ExportButton = new JButton("Export");
         CloseButton = new JButton("Close");
+
+        ExportButton.addActionListener(e -> {
+            assert FileFormat.getSelectList().getSelectedItem() != null;
+            if (FileFormat.getSelectList().getSelectedItem().equals("jpg")) {
+                GenerateJPG.generateJPG(
+                        ExportPanel.this.MainViewLogic.getPreviewWindow(),
+                        ExportPanel.this.MainViewLogic.getBingoName().getTextField().getText(),
+                        ExportPanel.this.MainViewLogic.getOutputFolder().getTextField().getText());
+            }
+        });
 
         JRootPane Root = SwingUtilities.getRootPane(this);
         Root.setDefaultButton(ExportButton);
