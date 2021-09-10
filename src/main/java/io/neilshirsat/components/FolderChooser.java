@@ -17,14 +17,14 @@ public class FolderChooser extends TextField {
     public FolderChooser( String name ) {
         super();
 
-        super.label.setText(name);
+        super.setLabelText(name);
 
         filechooser = new JFileChooser();
         filechooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         FolderChooserWindow = new JFrame();
 
-        this.textField.setColumns(50);
-        this.textField.addMouseListener(
+        this.setInputColumns(50);
+        this.getTextField().addMouseListener(
                 new MouseListener() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
@@ -32,7 +32,7 @@ public class FolderChooser extends TextField {
                                 FolderChooser.this.FolderChooserWindow);
                         if(option == JFileChooser.APPROVE_OPTION){
                             File file = FolderChooser.this.filechooser.getSelectedFile();
-                            FolderChooser.this.textField.setText(file.getAbsolutePath());
+                            FolderChooser.this.getTextField().setText(file.getAbsolutePath());
                         }
                     }
 

@@ -1,7 +1,5 @@
 package io.neilshirsat.bingoboard;
 
-import io.neilshirsat.components.TitleBar;
-
 import javax.swing.*;
 import java.awt.*;
 
