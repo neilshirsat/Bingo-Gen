@@ -1,8 +1,11 @@
 package io.neilshirsat.render.shapes;
 
 import java.awt.*;
+import io.neilshirsat.render.*;
 
 public class StringGraphics implements PaintableGraphics {
+
+    private String StringToPrint;
 
     private int PositionY;
 
@@ -18,11 +21,17 @@ public class StringGraphics implements PaintableGraphics {
 
     private Color BorderColor;
 
-    private io.neilshirsat.render.BorderType BorderType;
+    private BorderType BorderType;
 
-    private boolean BackgroundedShape;
+    private Font TextFont;
 
-    private Color BackgroundColor;
+    private float TextFontSize;
+
+    private int TextFontStyle;
+
+    private Color TextFontColor;
+
+    private boolean Centered;
 
     public int getPositionY() {
         return PositionY;
@@ -80,32 +89,89 @@ public class StringGraphics implements PaintableGraphics {
         BorderColor = borderColor;
     }
 
-    public io.neilshirsat.render.BorderType getBorderType() {
+    public BorderType getBorderType() {
         return BorderType;
     }
 
-    public void setBorderType(io.neilshirsat.render.BorderType borderType) {
+    public void setBorderType(BorderType borderType) {
         BorderType = borderType;
     }
 
-    public boolean isBackgroundedShape() {
-        return BackgroundedShape;
+    public Font getTextFont() {
+        return TextFont;
     }
 
-    public void setBackgroundedShape(boolean backgroundedShape) {
-        BackgroundedShape = backgroundedShape;
+    public void setTextFont(Font textFont) {
+        TextFont = textFont;
     }
 
-    public Color getBackgroundColor() {
-        return BackgroundColor;
+    public float getTextFontSize() {
+        return TextFontSize;
     }
 
-    public void setBackgroundColor(Color backgroundColor) {
-        BackgroundColor = backgroundColor;
+    public void setTextFontSize(float textFontSize) {
+        TextFontSize = textFontSize;
+    }
+
+    public int getTextFontStyle() {
+        return TextFontStyle;
+    }
+
+    public void setTextFontStyle(int textFontStyle) {
+        TextFontStyle = textFontStyle;
+    }
+
+    public Color getTextFontColor() {
+        return TextFontColor;
+    }
+
+    public void setTextFontColor(Color textFontColor) {
+        TextFontColor = textFontColor;
+    }
+
+    public boolean isCentered() {
+        return Centered;
+    }
+
+    public void setCentered(boolean centered) {
+        Centered = centered;
+    }
+
+    public String getStringToPrint() {
+        return StringToPrint;
+    }
+
+    public void setStringToPrint(String stringToPrint) {
+        StringToPrint = stringToPrint;
     }
 
     @Override
     public void paint(Graphics g) {
+
+        //Add Text Antialiasing
+        if (g instanceof Graphics2D g2d) {
+            g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON );
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON );
+        }
+
+        //Set the Color of the Text and Set the Font
+        g.setColor(TextFontColor);
+        g.setFont(TextFont.deriveFont(TextFontStyle, TextFontSize));
+
+        //If the Text Is Centered
+        if (isCentered()){
+            FontMetrics fm = g.getFontMetrics();
+
+            int stringWidth = fm.stringWidth(StringToPrint);
+            int stringAccent = fm.getAscent();
+            int xCoordinate = getWidth() / 2 - stringWidth / 2;
+            int yCoordinate = getHeight() / 2 + stringAccent / 2;
+            g.drawString(StringToPrint, xCoordinate, yCoordinate);
+
+        }
+        else {
+            g.drawString(StringToPrint, PositionX, PositionY);
+        }
 
     }
 

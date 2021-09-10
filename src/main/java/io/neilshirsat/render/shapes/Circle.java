@@ -108,7 +108,6 @@ public class Circle implements PaintableGraphics {
 
     @Override
     public void paint(Graphics g) {
-
     }
 
     @Override
