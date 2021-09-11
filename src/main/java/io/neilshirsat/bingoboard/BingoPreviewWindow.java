@@ -1,6 +1,10 @@
 package io.neilshirsat.bingoboard;
 
+import io.neilshirsat.simulation.SimulationPanel;
+
 import javax.swing.*;
+import javax.swing.event.MenuKeyEvent;
+import javax.swing.event.MenuKeyListener;
 import java.awt.*;
 
 public class BingoPreviewWindow extends JFrame {
@@ -40,6 +44,16 @@ public class BingoPreviewWindow extends JFrame {
         super.setSize(  (int)WindowDimension.getHeight() * 15/16 * 5/6 , (int)WindowDimension.getHeight() * 15/16);
         //super.setResizable(false);
         super.getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
+
+        SimulationPanel sim = new SimulationPanel();
+        JMenuBar menubar = new JMenuBar();
+        JMenu menu = new JMenu("Simulation");
+        JMenuItem menuItem = new JMenuItem("New Simulation");
+        menuItem.addActionListener(e-> sim.getWindow().setVisible(!sim.getWindow().isVisible()));
+        menu.add(menuItem);
+        menubar.add(menu);
+
+        super.setJMenuBar(menubar);
 
         bingo = new BingoGrid();
         bingo.setSquareBackground(BackgroundColor);

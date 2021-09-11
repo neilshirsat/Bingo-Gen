@@ -7,6 +7,7 @@ import io.neilshirsat.components.ColorPicker;
 import io.neilshirsat.components.FolderChooser;
 import io.neilshirsat.components.TextField;
 import io.neilshirsat.generation.GenerateJPG;
+import io.neilshirsat.ui.bingo.BingoPreview;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -20,7 +21,7 @@ public class MainView extends JPanel {
 
     private boolean PreviewOpen;
 
-    private BingoPreviewWindow PreviewWindow;
+    private BingoPreview PreviewWindow;
 
     private TextField BingoName;
 
@@ -56,22 +57,13 @@ public class MainView extends JPanel {
         BingoName.setPreferredSize(new Dimension(50, 20));
 
         BackgroundColor = new ColorPicker("Background Color", new Color(0, 174, 255));
-        BackgroundColor.setActionListener(event -> {
-            System.out.println("Background Color Chosen" + event);
-            MainView.this.PreviewWindow.setPreviewBackground(event);
-        });
 
         TextColor = new ColorPicker("Text Color", Color.WHITE);
-        TextColor.setActionListener(event -> MainView.this.PreviewWindow.setPreviewTextColor(event));
 
         TitleColor = new ColorPicker("Title Color", Color.BLUE);
-        TitleColor.setActionListener(event -> MainView.this.PreviewWindow.setPreviewTitleTextColor(event));
 
         TitleBackgroundColor = new ColorPicker("Title Background Color", Color.GREEN);
-        TitleBackgroundColor.setActionListener(event -> MainView.this.PreviewWindow.setPreviewTitleBackgroundColor(event));
-
         BorderColor = new ColorPicker("Border Color", Color.BLACK);
-        BorderColor.setActionListener(event -> MainView.this.PreviewWindow.setPreviewBorderColor(event));
 
         OutputFolder = new FolderChooser("Output Folder: ");
 
@@ -82,12 +74,7 @@ public class MainView extends JPanel {
                     PreviewWindow.isVisible() ? "Close Preview" : "Preview");
         });
 
-        PreviewWindow = new BingoPreviewWindow(
-                BackgroundColor.getSelectedColor(),
-                TextColor.getSelectedColor(),
-                TitleColor.getSelectedColor(),
-                TitleBackgroundColor.getSelectedColor()
-        );
+        PreviewWindow = new BingoPreview();
 
         Export = new ExportPanel(this);
 
@@ -149,11 +136,11 @@ public class MainView extends JPanel {
         PreviewOpen = previewOpen;
     }
 
-    public BingoPreviewWindow getPreviewWindow() {
+    public BingoPreview getPreviewWindow() {
         return PreviewWindow;
     }
 
-    public void setPreviewWindow(BingoPreviewWindow previewWindow) {
+    public void setPreviewWindow(BingoPreview previewWindow) {
         PreviewWindow = previewWindow;
     }
 

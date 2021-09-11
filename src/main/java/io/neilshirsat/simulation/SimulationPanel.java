@@ -11,7 +11,10 @@ public class SimulationPanel {
     private boolean Visible;
 
     public SimulationPanel(){
-
+        Window = new UtilityWindow();
+        Window.setHeight(500);
+        Window.setWidth(500);
+        Window.setTitle("Simulation Screen");
     }
 
     public UtilityWindow getWindow() {
