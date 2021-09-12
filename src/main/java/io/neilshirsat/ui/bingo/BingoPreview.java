@@ -1,10 +1,12 @@
 package io.neilshirsat.ui.bingo;
 
 import io.neilshirsat.Application;
-import io.neilshirsat.render.ShapeType;
+import io.neilshirsat.util.ShapeType;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.Objects;
 
 /**
@@ -16,11 +18,51 @@ public class BingoPreview extends JFrame {
 
     private BingoPanel BingoPanel;
 
+    private io.neilshirsat.util.WindowCloseListener WindowCloseListener;
+
     public BingoPreview() {
         super();
 
         super.setTitle("Bingo Board Preview");
         super.setDefaultCloseOperation(HIDE_ON_CLOSE);
+        super.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                if (getWindowCloseListener() != null) {
+                    getWindowCloseListener().close();
+                }
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+
+            }
+        });
 
         Dimension WindowDimension = Toolkit.getDefaultToolkit().getScreenSize();
         super.setSize(  (int)WindowDimension.getHeight() * 15/16 * 5/6 , (int)WindowDimension.getHeight() * 15/16);
@@ -76,6 +118,8 @@ public class BingoPreview extends JFrame {
                 SquareState[i][j].setPositionY(0);
                 SquareState[i][j].setShape(ShapeType.RECTANGLE);
                 SquareState[i][j].setBaseBackgroundColor(Color.BLACK);
+                SquareState[i][j].setFreeSpace(false);
+                SquareState[i][j].setFreeSpaceText("Free Space");
             }
         }
 
@@ -102,6 +146,14 @@ public class BingoPreview extends JFrame {
 
     public void setBingoPanel(io.neilshirsat.ui.bingo.BingoPanel bingoPanel) {
         BingoPanel = bingoPanel;
+    }
+
+    public io.neilshirsat.util.WindowCloseListener getWindowCloseListener() {
+        return WindowCloseListener;
+    }
+
+    public void setWindowCloseListener(io.neilshirsat.util.WindowCloseListener windowCloseListener) {
+        WindowCloseListener = windowCloseListener;
     }
 
 }

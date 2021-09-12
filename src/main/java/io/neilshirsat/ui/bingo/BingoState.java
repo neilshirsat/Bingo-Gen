@@ -1,7 +1,5 @@
 package io.neilshirsat.ui.bingo;
 
-import io.neilshirsat.render.ShapeType;
-
 import java.awt.*;
 
 public class BingoState {

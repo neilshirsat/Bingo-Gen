@@ -1,11 +1,9 @@
 package io.neilshirsat.ui.bingo;
 
-import io.neilshirsat.render.ShapeType;
+import io.neilshirsat.util.ShapeType;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 public class BingoSquare extends JPanel {
 
@@ -15,6 +13,7 @@ public class BingoSquare extends JPanel {
         this.State = State;
         super.setOpaque(false);
         super.setBackground(State.getBaseBackgroundColor());
+        State.setBingoStateWatcher(e-> repaint());
     }
 
     @Override
@@ -77,7 +76,7 @@ public class BingoSquare extends JPanel {
         }
 
         //Draw the Free Space Text to the Screen
-        if (State.isTitle()) {
+        else if (State.isTitle()) {
             FontMetrics fm = g2d.getFontMetrics();
 
             int stringWidth = fm.stringWidth(State.getTitleText());
@@ -97,8 +96,6 @@ public class BingoSquare extends JPanel {
             int yCoordinate = getHeight() / 2 + stringAccent / 2;
             g2d.drawString(State.getSquareNumber(), xCoordinate, yCoordinate);
         }
-
-        System.out.println( getWidth() + " " + getHeight() );
 
     }
 

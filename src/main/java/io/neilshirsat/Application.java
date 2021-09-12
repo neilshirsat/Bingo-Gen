@@ -3,7 +3,7 @@ package io.neilshirsat;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.intellijthemes.FlatCarbonIJTheme;
 import com.formdev.flatlaf.intellijthemes.FlatOneDarkIJTheme;
-import io.neilshirsat.mainview.MainWindow;
+import io.neilshirsat.ui.main.MainWindow;
 import mdlaf.MaterialLookAndFeel;
 
 import javax.swing.*;

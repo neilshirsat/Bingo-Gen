@@ -22,4 +22,22 @@ public enum BingoProperties {
 
     SHAPE,
 
+    BORDER_THICKNESS,
+
+    BORDER_COLOR,
+
+    TEXT_ANALISE,
+
+    ANALISE,
+
+    IS_FREE_SPACE,
+
+    FREE_SPACE_TEXT,
+
+    IS_TITLE,
+
+    TITLE_TEXT,
+
+    SQUARE_NUMBER,
+
 }
