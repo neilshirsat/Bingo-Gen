@@ -36,8 +36,8 @@ public class SimulationPanel extends JPanel {
 
         RollButton = new JButton("Roll Button");
         RollButton.addActionListener(e->{
-            SimulationHistoryModel.addRow(new String[]{"1", "1"});
-            SimulationHistoryModel.addRow(new String[]{"1", "1"});
+            SimulationHistoryModel.addRow(new String[]{"1", "1", "1", "1"});
+            SimulationHistoryModel.addRow(new String[]{"1", "1", "1", "1"});
         });
 
         SimulationPanelLayout.setHorizontalGroup(SimulationPanelLayout.createParallelGroup()
