@@ -1,4 +1,7 @@
 package io.neilshirsat.ui.start;
 
-public class StartWindow {
+import javax.swing.*;
+
+public class StartWindow extends JFrame {
+
 }

@@ -4,6 +4,7 @@ import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.intellijthemes.FlatCarbonIJTheme;
 import com.formdev.flatlaf.intellijthemes.FlatOneDarkIJTheme;
 import io.neilshirsat.ui.main.MainWindow;
+import io.neilshirsat.ui.startup.StartUpWindow;
 import mdlaf.MaterialLookAndFeel;
 
 import javax.swing.*;
@@ -18,11 +19,11 @@ public class Application {
         FlatOneDarkIJTheme.setup();
         FlatCarbonIJTheme.setup();
 
-        StartUpWindow Window = new StartUpWindow();
+        StartUpWindow StartUpWindow = new StartUpWindow();
 
-        MainWindow Main = new MainWindow();
-        Main.setDefaultCloseOperation(Main.EXIT_ON_CLOSE);
-        Window.setVisible(false);
+        //MainWindow Main = new MainWindow();
+        //Main.setDefaultCloseOperation(Main.EXIT_ON_CLOSE);
+        //StartUpWindow.setVisible(false);
 
     }
 

@@ -1,4 +1,9 @@
 package io.neilshirsat.ui.simulation;
 
-public class StartSimulationWindow {
+import javax.swing.*;
+
+public class StartSimulationWindow extends JFrame {
+
+
+
 }
