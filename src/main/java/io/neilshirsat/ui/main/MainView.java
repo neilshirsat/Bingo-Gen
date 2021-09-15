@@ -1,6 +1,7 @@
 package io.neilshirsat.ui.main;
 
 import io.neilshirsat.Application;
+import io.neilshirsat.components.button.GrandButton;
 import io.neilshirsat.ui.bingo.BingoPreview;
 import io.neilshirsat.ui.bingo.BingoSquareState;
 import io.neilshirsat.ui.bingo.BingoState;
@@ -42,7 +43,7 @@ public class MainView extends JPanel {
         super.setLayout(MainViewLayout);
         super.setBorder(new EmptyBorder(20, 20, 20, 20));
 
-        PreviewButton = new JButton("Preview");
+        PreviewButton = new GrandButton("Preview");
 
         Font font = null;
         try {
@@ -116,23 +117,23 @@ public class MainView extends JPanel {
         });
 
         CustomizeWindow = new CustomizeWindow(PreviewWindow.getBingoState());
-        CustomizeButton = new JButton("Customize Bingo");
+        CustomizeButton = new GrandButton("Customize Bingo Styling");
         CustomizeButton.addActionListener(e -> MainView.this.CustomizeWindow.setVisible(true));
 
-        SimulationButton = new JButton("Simulation");
+        SimulationButton = new GrandButton("Simulation");
         SimulationWindow = new SimulationWindow();
         SimulationButton.addActionListener(e -> {
             SimulationWindow.setVisible(!SimulationWindow.isVisible());
             SimulationButton.setText(
-                    SimulationWindow.isVisible() ? "Close Simulation" : "Simulation");
+                    SimulationWindow.isVisible() ? "Close Simulation" : "Start Simulation");
         });
         SimulationWindow.setWindowCloseListener(() -> {
             SimulationWindow.setVisible(!SimulationWindow.isVisible());
             SimulationButton.setText(
-                    SimulationWindow.isVisible() ? "Close Simulation" : "Simulation");
+                    SimulationWindow.isVisible() ? "Close Simulation" : "Start Simulation");
         });
 
-        PrintButton = new JButton("Print");
+        PrintButton = new GrandButton("Print");
 
         MainViewLayout.setHorizontalGroup(MainViewLayout.createParallelGroup()
                 .addComponent(CustomizeButton)

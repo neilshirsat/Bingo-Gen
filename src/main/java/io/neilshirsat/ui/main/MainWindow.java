@@ -39,9 +39,10 @@ public class MainWindow extends JFrame {
         super.setTitle("Bingo Gen_");
         super.setJMenuBar( menuBar );
         super.setContentPane(RootPanel);
+        super.setResizable(false);
         super.setSize(
                 800,
-                800
+                600
         );
 
         Dimension WindowDimension = Toolkit.getDefaultToolkit().getScreenSize();

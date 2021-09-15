@@ -21,9 +21,9 @@ public class Application {
 
         StartUpWindow StartUpWindow = new StartUpWindow();
 
-        //MainWindow Main = new MainWindow();
-        //Main.setDefaultCloseOperation(Main.EXIT_ON_CLOSE);
-        //StartUpWindow.setVisible(false);
+        MainWindow Main = new MainWindow();
+        Main.setDefaultCloseOperation(Main.EXIT_ON_CLOSE);
+        StartUpWindow.setVisible(false);
 
     }
 
