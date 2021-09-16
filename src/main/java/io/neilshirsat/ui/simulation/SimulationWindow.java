@@ -1,5 +1,7 @@
 package io.neilshirsat.ui.simulation;
 
+import io.neilshirsat.ui.bingo.BingoState;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
@@ -11,7 +13,7 @@ public class SimulationWindow extends JFrame {
 
     private io.neilshirsat.util.WindowCloseListener WindowCloseListener;
 
-    public SimulationWindow() {
+    public SimulationWindow(BingoState BingoState) {
         super();
 
         super.setTitle("Bingo Simulation");
@@ -55,15 +57,15 @@ public class SimulationWindow extends JFrame {
             }
         });
 
+        SimulationPanel = new SimulationPanel(BingoState);
+
+        super.setContentPane(SimulationPanel);
+        super.pack();
+
         Dimension WindowDimension = Toolkit.getDefaultToolkit().getScreenSize();
-        super.setSize(  (int)WindowDimension.getHeight() * 15/16 * 5/6 , (int)WindowDimension.getHeight() * 15/16);
         super.setLocation(WindowDimension.width/2-this.getSize().width/2,
                 WindowDimension.height/2-this.getSize().height/2
         );
-
-        SimulationPanel = new SimulationPanel();
-
-        super.setContentPane(SimulationPanel);
     }
 
     public io.neilshirsat.util.WindowCloseListener getWindowCloseListener() {

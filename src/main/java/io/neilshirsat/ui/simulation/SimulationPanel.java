@@ -1,5 +1,8 @@
 package io.neilshirsat.ui.simulation;
 
+import io.neilshirsat.ui.bingo.BingoPanel;
+import io.neilshirsat.ui.bingo.BingoState;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
@@ -10,6 +13,8 @@ public class SimulationPanel extends JPanel {
 
     private JButton RollButton;
 
+    private BingoPanel BingoPanel;
+
     private JTable SimulationHistory;
 
     private JScrollPane SimulationHistoryScrollPane;
@@ -18,7 +23,7 @@ public class SimulationPanel extends JPanel {
 
     private GroupLayout SimulationPanelLayout;
 
-    public SimulationPanel() {
+    public SimulationPanel(BingoState State) {
         super();
 
         SimulationPanelLayout = new GroupLayout(this);
@@ -28,6 +33,11 @@ public class SimulationPanel extends JPanel {
         SimulationHistoryModel = new DefaultTableModel();
         SimulationHistory = new JTable(SimulationHistoryModel);
         SimulationHistoryScrollPane = new JScrollPane(SimulationHistory);
+
+        BingoPanel = new BingoPanel(State);
+        Dimension WindowDimension = Toolkit.getDefaultToolkit().getScreenSize();
+        BingoPanel.setPreferredSize(  new Dimension( (int)WindowDimension.getHeight() * 15/16 * 5/6 , (int)WindowDimension.getHeight() * 15/16));
+        BingoPanel.setMaximumSize(  new Dimension( (int)WindowDimension.getHeight() * 15/16 * 5/6 , (int)WindowDimension.getHeight() * 15/16));
 
         SimulationHistoryModel.addColumn("No.");
         SimulationHistoryModel.addColumn("Bingo Square Called");
@@ -41,11 +51,17 @@ public class SimulationPanel extends JPanel {
         });
 
         SimulationPanelLayout.setHorizontalGroup(SimulationPanelLayout.createParallelGroup()
-                .addComponent(SimulationHistoryScrollPane)
+                .addGroup(SimulationPanelLayout.createSequentialGroup()
+                        .addComponent(BingoPanel)
+                        .addComponent(SimulationHistoryScrollPane)
+                )
                 .addComponent(RollButton)
         );
         SimulationPanelLayout.setVerticalGroup(SimulationPanelLayout.createSequentialGroup()
-                .addComponent(SimulationHistoryScrollPane)
+                .addGroup(SimulationPanelLayout.createParallelGroup()
+                        .addComponent(BingoPanel)
+                        .addComponent(SimulationHistoryScrollPane)
+                )
                 .addComponent(RollButton)
         );
     }

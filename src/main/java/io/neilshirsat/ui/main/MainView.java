@@ -66,7 +66,7 @@ public class MainView extends JPanel {
             TitleState[i].setTextFont(font);
             TitleState[i].setBorderColor(Color.BLACK);
             TitleState[i].setBackgroundColor(Color.WHITE);
-            TitleState[i].setBorderThickness(1);
+            TitleState[i].setBorderThickness(2);
             TitleState[i].setPositionX(0);
             TitleState[i].setPositionY(0);
             TitleState[i].setShape(ShapeType.CIRCLE);
@@ -88,7 +88,7 @@ public class MainView extends JPanel {
                 SquareState[i][j].setTextFont(font);
                 SquareState[i][j].setBorderColor(Color.BLACK);
                 SquareState[i][j].setBackgroundColor(Color.WHITE);
-                SquareState[i][j].setBorderThickness(1);
+                SquareState[i][j].setBorderThickness(2);
                 SquareState[i][j].setPositionX(0);
                 SquareState[i][j].setPositionY(0);
                 SquareState[i][j].setShape(ShapeType.RECTANGLE);
@@ -121,7 +121,7 @@ public class MainView extends JPanel {
         CustomizeButton.addActionListener(e -> MainView.this.CustomizeWindow.setVisible(true));
 
         SimulationButton = new GrandButton("Simulation");
-        SimulationWindow = new SimulationWindow();
+        SimulationWindow = new SimulationWindow(PreviewWindow.getBingoState());
         SimulationButton.addActionListener(e -> {
             SimulationWindow.setVisible(!SimulationWindow.isVisible());
             SimulationButton.setText(

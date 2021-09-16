@@ -17,6 +17,8 @@ public class BingoPanel extends JPanel {
         super.setBackground(BingoState.getBaseBackgroundColor());
         super.setBorder(new EmptyBorder(20, 20, 20, 20));
         BingoGridLayout = new GridLayout( 6, 5 );
+        BingoGridLayout.setHgap(0);
+        BingoGridLayout.setVgap(0);
         super.setLayout( BingoGridLayout );
 
         for (int i = 0; i < 5; i++) {
