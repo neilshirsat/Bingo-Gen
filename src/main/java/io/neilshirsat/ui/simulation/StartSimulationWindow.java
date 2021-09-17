@@ -39,7 +39,7 @@ public class StartSimulationWindow extends JDialog {
 
         BingoBoards = new NumberField();
         BingoBoards.setLabelText("Amount of Bingo Boards: ");
-        BingoBoards.getNumberField().setModel(new SpinnerNumberModel(1, 1, 100000, 1));
+        BingoBoards.getNumberField().setModel(new SpinnerNumberModel(1, 1, 1000000, 1));
 
         AmountOfDays = new NumberField();
         AmountOfDays.setLabelText("Amount of Days: ");
@@ -51,7 +51,7 @@ public class StartSimulationWindow extends JDialog {
 
         Winners = new NumberField();
         Winners.setLabelText("Amount of Winners: ");
-        Winners.getNumberField().setModel(new SpinnerNumberModel(1, 1, 100000, 1));
+        Winners.getNumberField().setModel(new SpinnerNumberModel(1, 1, 1000000, 1));
 
         CreateSimulationButton = new JButton("Create Simulation");
         CreateSimulationButton.addActionListener(e->{
