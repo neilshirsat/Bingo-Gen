@@ -44,9 +44,9 @@ public class SettingsPanel extends JPanel {
         WindowThemes.add("Cyan Light");
         WindowThemes.add("Dark Purple");
         WindowThemes.add("Gradianto Dark Fuchsia");
-        WindowThemes.add("Gradianto");
-        WindowThemes.add("Gradianto");
-        WindowThemes.add("Gradianto");
+        WindowThemes.add("Gradianto Deep Ocean");
+        WindowThemes.add("Gradianto Midnight Blue");
+        WindowThemes.add("Gradianto Nature Green");
         WindowThemes.add("OS Theme - NOT RECOMMENDED FOR USE");
         WindowThemes.add("Custom");
         SetWindowTheme = new Select<String>(setStringArray(WindowThemes));
@@ -94,14 +94,14 @@ public class SettingsPanel extends JPanel {
             else if (value.equals("Gradianto Dark Fuchsia")) {
                 FlatGradiantoDarkFuchsiaIJTheme.setup();
             }
-            else if (value.equals("Cyan Light")) {
-                FlatCyanLightIJTheme.setup();
+            else if (value.equals("Gradianto Deep Ocean")) {
+                FlatGradiantoDeepOceanIJTheme.setup();
             }
-            else if (value.equals("Dark Purple")) {
-                FlatDarkPurpleIJTheme.setup();
+            else if (value.equals("Gradianto Midnight Blue")) {
+                FlatGradiantoMidnightBlueIJTheme.setup();
             }
-            else if (value.equals("Dark Purple")) {
-                FlatDarkPurpleIJTheme.setup();
+            else if (value.equals("Gradianto Nature Green")) {
+                FlatGradiantoNatureGreenIJTheme.setup();
             }
             else if (value.equals("OS Theme - NOT RECOMMENDED FOR USE")) {
                 try {
