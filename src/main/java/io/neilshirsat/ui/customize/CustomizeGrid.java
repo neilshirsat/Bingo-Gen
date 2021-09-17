@@ -42,7 +42,10 @@ public class CustomizeGrid extends JPanel {
             CustomizeTitle[i] = new SquareCustomizeWindow(State.getTitleSquares()[i]);
             CustomizeTitle[i].setTitle(TitleLetters[i]);
             int finalI = i;
-            CustomizeTitleButton[i].addActionListener(e-> CustomizeTitle[finalI].setVisible(true));
+            CustomizeTitleButton[i].addActionListener(e-> {
+                CustomizeTitle[finalI].setVisible(true);
+                SwingUtilities.updateComponentTreeUI(SwingUtilities.getRoot(CustomizeTitle[finalI]));
+            });
         }
 
         for (int i = 0; i < 5; i++) {
@@ -52,8 +55,10 @@ public class CustomizeGrid extends JPanel {
                 CustomizeSquares[i][j].setTitle(TitleLetters[i] + " " + j);
                 int finalI = i;
                 int finalJ = j;
-                CustomizeSquaresButton[i][j].addActionListener(e->
-                        CustomizeSquares[finalI][finalJ].setVisible(true));
+                CustomizeSquaresButton[i][j].addActionListener(e->{
+                    CustomizeSquares[finalI][finalJ].setVisible(true);
+                    SwingUtilities.updateComponentTreeUI(SwingUtilities.getRoot(CustomizeSquares[finalI][finalJ]));
+                });
             }
         }
 

@@ -5,6 +5,8 @@ import io.neilshirsat.components.numberfield.NumberField;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 public class StartSimulationWindow extends JDialog {
 
@@ -25,6 +27,8 @@ public class StartSimulationWindow extends JDialog {
     private GroupLayout SimulationPanelLayout;
 
     private StartSimulationCloseHandler SimulationCloseHandler;
+
+    private StartSimulationCancelHandler SimulationCancelHandler;
 
     public StartSimulationWindow() {
 
@@ -100,12 +104,59 @@ public class StartSimulationWindow extends JDialog {
 
         super.add(SimulationPanel);
 
+        super.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                if (getSimulationCancelHandler() != null) {
+                    getSimulationCancelHandler().handle();
+                }
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+
+            }
+        });
+
         super.pack();
         Dimension WindowDimension = Toolkit.getDefaultToolkit().getScreenSize();
         super.setLocation(WindowDimension.width/2-this.getSize().width/2,
                 WindowDimension.height/2-this.getSize().height/2
         );
 
+    }
+
+    public StartSimulationCancelHandler getSimulationCancelHandler() {
+        return SimulationCancelHandler;
+    }
+
+    public void setSimulationCancelHandler(StartSimulationCancelHandler simulationCancelHandler) {
+        SimulationCancelHandler = simulationCancelHandler;
     }
 
     public StartSimulationCloseHandler getSimulationCloseHandler() {

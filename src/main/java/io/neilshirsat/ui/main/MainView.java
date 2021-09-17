@@ -1,12 +1,14 @@
 package io.neilshirsat.ui.main;
 
 import io.neilshirsat.Application;
-import io.neilshirsat.components.button.GrandButton;
+import io.neilshirsat.components.verticaltabs.VerticalTabs;
 import io.neilshirsat.ui.bingo.BingoPreview;
 import io.neilshirsat.ui.bingo.BingoSquareState;
 import io.neilshirsat.ui.bingo.BingoState;
+import io.neilshirsat.ui.customize.CustomizeTab;
 import io.neilshirsat.ui.customize.CustomizeWindow;
 import io.neilshirsat.ui.simulation.SimulationWindow;
+import io.neilshirsat.ui.simulation.StartSimulationCancelHandler;
 import io.neilshirsat.ui.simulation.StartSimulationWindow;
 import io.neilshirsat.util.ShapeType;
 
@@ -27,17 +29,23 @@ public class MainView extends JPanel {
 
     private JButton PreviewButton;
 
-    private JButton CustomizeButton;
-
     private JButton SimulationButton;
-
-    private CustomizeWindow CustomizeWindow;
 
     private StartSimulationWindow StartSimulationWindow;
 
     private SimulationWindow SimulationWindow;
 
     private JButton PrintButton;
+
+    private VerticalTabs MainViewTabs;
+
+    private CustomizeTab CustomizeBingoTabs;
+
+    private JPanel PreviewBingoTab;
+
+    private JPanel SimulationBingoTab;
+
+    private SettingsPanel SettingsTab;
 
     public MainView() {
         super();
@@ -46,7 +54,7 @@ public class MainView extends JPanel {
         super.setLayout(MainViewLayout);
         super.setBorder(new EmptyBorder(20, 20, 20, 20));
 
-        PreviewButton = new GrandButton("Preview");
+        PreviewButton = new JButton("Preview");
 
         Font font = null;
         try {
@@ -124,16 +132,14 @@ public class MainView extends JPanel {
                     PreviewWindow.isVisible() ? "Close Preview" : "Preview");
         });
 
-        CustomizeWindow = new CustomizeWindow(PreviewWindow.getBingoState());
-        CustomizeButton = new GrandButton("Customize Bingo Styling");
-        CustomizeButton.addActionListener(e -> MainView.this.CustomizeWindow.setVisible(true));
-
-        SimulationButton = new GrandButton("Simulation");
+        SimulationButton = new JButton("Simulation");
 
         SimulationButton.addActionListener(e -> {
             StartSimulationWindow = new StartSimulationWindow();
+            StartSimulationWindow.setSimulationCancelHandler(()->{
+                SimulationButton.setEnabled(true);
+            });
             StartSimulationWindow.setSimulationCloseHandler((int board, int age, int seed, int winner)->{
-                System.out.println("SS Window Handler");
                 SimulationWindow = new SimulationWindow(PreviewWindow.getBingoState(), board, age, seed, winner);
                 SimulationWindow.setVisible(true);
                 SimulationWindow.setWindowCloseListener(() -> {
@@ -148,30 +154,42 @@ public class MainView extends JPanel {
         });
 
 
-        PrintButton = new GrandButton("Print");
+        PrintButton = new JButton("Print");
+
+        CustomizeBingoTabs = new CustomizeTab(PreviewWindow.getBingoState());
+
+        PreviewBingoTab = new JPanel();
+        PreviewBingoTab.add(PreviewButton);
+
+        SimulationBingoTab = new JPanel();
+        SimulationBingoTab.add(SimulationButton);
+
+        SettingsTab = new SettingsPanel();
+
+        MainViewTabs = new VerticalTabs();
+        MainViewTabs.addTab(
+                "Style the Bingo",
+                CustomizeBingoTabs
+        );
+        MainViewTabs.addTab(
+                "Preview Board",
+                PreviewBingoTab
+        );
+        MainViewTabs.addTab(
+                "Start Simulation",
+                SimulationBingoTab
+        );
+        MainViewTabs.addTab(
+                "Settings",
+                SettingsTab
+        );
+
 
         MainViewLayout.setHorizontalGroup(MainViewLayout.createParallelGroup()
-                .addComponent(CustomizeButton)
-                .addComponent(PreviewButton)
-                .addComponent(SimulationButton)
-                .addGroup(
-                        MainViewLayout.createSequentialGroup()
-                                .addComponent(PrintButton)
-                                .addGap(15)
-                )
+                .addComponent(MainViewTabs)
         );
         MainViewLayout.setVerticalGroup(MainViewLayout.createSequentialGroup()
-                .addComponent(CustomizeButton)
-                .addGap(15)
-                .addComponent(PreviewButton)
-                .addGap(15)
-                .addComponent(SimulationButton)
-                .addGap(15)
-                .addGroup(
-                        MainViewLayout.createParallelGroup()
-                                .addComponent(PrintButton)
-                )
-
+                .addComponent(MainViewTabs)
         );
 
     }

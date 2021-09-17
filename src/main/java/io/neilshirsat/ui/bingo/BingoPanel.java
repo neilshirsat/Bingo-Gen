@@ -15,6 +15,9 @@ public class BingoPanel extends JPanel {
         this.BingoState = BingoState;
 
         super.setBackground(BingoState.getBaseBackgroundColor());
+        BingoState.setBingoStateWatcher(e->{
+            super.setBackground(BingoState.getBaseBackgroundColor());
+        });
         super.setBorder(new EmptyBorder(20, 20, 20, 20));
         BingoGridLayout = new GridLayout( 6, 5 );
         BingoGridLayout.setHgap(0);

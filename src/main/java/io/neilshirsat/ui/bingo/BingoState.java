@@ -42,6 +42,9 @@ public class BingoState {
 
     public void setBaseBackgroundColor(Color baseBackgroundColor) {
         BaseBackgroundColor = baseBackgroundColor;
+        if (getBingoStateWatcher() != null) {
+            getBingoStateWatcher().stateChange(BingoProperties.BACKGROUND_COLOR);
+        }
     }
 
 }
