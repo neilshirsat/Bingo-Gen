@@ -52,6 +52,10 @@ public class BingoSquareState {
 
     private BingoStateWatcher BingoStateWatcher;
 
+    private Color SelectedColor;
+
+    private boolean Selected;
+
     public long getBingoId() {
         return BingoId;
     }
@@ -284,6 +288,29 @@ public class BingoSquareState {
             getBingoStateWatcher().stateChange(BingoProperties.SQUARE_NUMBER);
         }
     }
+
+    public Color getSelectedColor() {
+        return SelectedColor;
+    }
+
+    public void setSelectedColor(Color selectedColor) {
+        SelectedColor = selectedColor;
+        if (getBingoStateWatcher() != null) {
+            getBingoStateWatcher().stateChange(BingoProperties.SELECTED_COLOR);
+        }
+    }
+
+    public boolean isSelected() {
+        return Selected;
+    }
+
+    public void setSelected(boolean selected) {
+        Selected = selected;if (getBingoStateWatcher() != null) {
+            getBingoStateWatcher().stateChange(BingoProperties.IS_SELECTED);
+        }
+    }
+
+
 
     public Color getBaseBackgroundColor() {
         return BaseBackgroundColor;

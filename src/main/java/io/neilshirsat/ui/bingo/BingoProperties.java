@@ -40,4 +40,8 @@ public enum BingoProperties {
 
     SQUARE_NUMBER,
 
+    IS_SELECTED,
+
+    SELECTED_COLOR,
+
 }

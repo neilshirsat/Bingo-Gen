@@ -25,6 +25,8 @@ public class SquareCustomizePanel extends JPanel {
 
     private ColorPicker BackgroundColor;
 
+    private ColorPicker SelectedColor;
+
     private String[] SHAPE_OPTIONS = new String[]{
             "Circle",
             "Rectangle"
@@ -75,6 +77,7 @@ public class SquareCustomizePanel extends JPanel {
 
         TextColor = new ColorPicker(State.getTextColor(), "Text Color");
         BackgroundColor = new ColorPicker(State.getBackgroundColor(), "Background Color");
+        SelectedColor = new ColorPicker(State.getSelectedColor(), "Selected Color");
 
         Shape = new Select<>(SHAPE_OPTIONS);
         Shape.setLabel("Shape");
@@ -143,6 +146,7 @@ public class SquareCustomizePanel extends JPanel {
 
         TextColor.setActionListener(e-> State.setTextColor(e.getSelectedColor()));
         BackgroundColor.setActionListener(e-> State.setBackgroundColor(e.getSelectedColor()));
+        SelectedColor.setActionListener(e-> State.setSelectedColor(e.getSelectedColor()));
         Shape.getSelectList().addActionListener(e->{
             assert Shape.getSelectList().getSelectedItem() != null;
             if (Shape.getSelectList().getSelectedItem().equals("Circle")) {
@@ -220,6 +224,7 @@ public class SquareCustomizePanel extends JPanel {
         SquareCustomizePanelLayout.setHorizontalGroup(SquareCustomizePanelLayout.createParallelGroup()
                 .addComponent(BackgroundColor)
                 .addComponent(TextColor)
+                .addComponent(SelectedColor)
                 .addComponent(Shape)
                 .addComponent(BorderColor)
                 .addComponent(BorderThickness)
@@ -236,6 +241,7 @@ public class SquareCustomizePanel extends JPanel {
         SquareCustomizePanelLayout.setVerticalGroup(SquareCustomizePanelLayout.createSequentialGroup()
                 .addComponent(BackgroundColor)
                 .addComponent(TextColor)
+                .addComponent(SelectedColor)
                 .addComponent(Shape)
                 .addComponent(BorderColor)
                 .addComponent(BorderThickness)

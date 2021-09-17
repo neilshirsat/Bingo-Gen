@@ -33,7 +33,7 @@ public class BingoSquare extends JPanel {
 
         //Draw the Border for Rectangle Shape
         if (State.getShape() == ShapeType.RECTANGLE) {
-            g2d.setPaint(State.getBackgroundColor());
+            g2d.setPaint(State.isSelected() ? State.getSelectedColor() : State.getBackgroundColor());
             g2d.fillRect(0, 0, getWidth(), getHeight());
 
             //Set the Border Color
@@ -44,7 +44,7 @@ public class BingoSquare extends JPanel {
 
         //Draw the Border for Circle Shape
         else if (State.getShape() == ShapeType.CIRCLE) {
-            g2d.setPaint(State.getBackgroundColor());
+            g2d.setPaint(State.isSelected() ? State.getSelectedColor() : State.getBackgroundColor());
             g2d.fillOval(0, 0, getWidth(), getHeight());
 
             //Set the Border Color

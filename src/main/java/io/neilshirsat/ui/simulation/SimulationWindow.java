@@ -13,7 +13,7 @@ public class SimulationWindow extends JFrame {
 
     private io.neilshirsat.util.WindowCloseListener WindowCloseListener;
 
-    public SimulationWindow(BingoState BingoState) {
+    public SimulationWindow(BingoState BingoState, int BingoBoardCount, int DayCount, int Seed, int Winners) {
         super();
 
         super.setTitle("Bingo Simulation");
@@ -26,9 +26,19 @@ public class SimulationWindow extends JFrame {
 
             @Override
             public void windowClosing(WindowEvent e) {
+                int ConfirmClose = JOptionPane.showConfirmDialog(
+                        null,
+                        "Are You Sure You Want to Exit",
+                        "Are You Sure You Want to Exit",
+                        JOptionPane.YES_NO_OPTION);
+                if (ConfirmClose != JOptionPane.YES_OPTION) {
+                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                    return;
+                }
                 if (getWindowCloseListener() != null) {
                     getWindowCloseListener().close();
                 }
+                dispose();
             }
 
             @Override
@@ -57,7 +67,7 @@ public class SimulationWindow extends JFrame {
             }
         });
 
-        SimulationPanel = new SimulationPanel(BingoState);
+        SimulationPanel = new SimulationPanel(BingoState, BingoBoardCount, DayCount, Seed, Winners);
 
         super.setContentPane(SimulationPanel);
         super.pack();

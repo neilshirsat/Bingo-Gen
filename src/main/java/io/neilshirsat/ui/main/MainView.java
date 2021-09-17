@@ -7,6 +7,7 @@ import io.neilshirsat.ui.bingo.BingoSquareState;
 import io.neilshirsat.ui.bingo.BingoState;
 import io.neilshirsat.ui.customize.CustomizeWindow;
 import io.neilshirsat.ui.simulation.SimulationWindow;
+import io.neilshirsat.ui.simulation.StartSimulationWindow;
 import io.neilshirsat.util.ShapeType;
 
 import javax.swing.*;
@@ -31,6 +32,8 @@ public class MainView extends JPanel {
     private JButton SimulationButton;
 
     private CustomizeWindow CustomizeWindow;
+
+    private StartSimulationWindow StartSimulationWindow;
 
     private SimulationWindow SimulationWindow;
 
@@ -81,7 +84,7 @@ public class MainView extends JPanel {
                 SquareState[i][j] = new BingoSquareState();
                 SquareState[i][j].setAnalise(true);
                 SquareState[i][j].setTextAnalise(true);
-                SquareState[i][j].setSquareNumber(i + " " + j);
+                SquareState[i][j].setSquareNumber(TitleLetters[i] + " " + j);
                 SquareState[i][j].setTextColor(Color.BLACK);
                 SquareState[i][j].setFontSize(50f);
                 SquareState[i][j].setFontStyle(Font.PLAIN);
@@ -95,8 +98,13 @@ public class MainView extends JPanel {
                 SquareState[i][j].setBaseBackgroundColor(Color.BLACK);
                 SquareState[i][j].setFreeSpace(false);
                 SquareState[i][j].setFreeSpaceText("Free Space");
+                SquareState[i][j].setSelectedColor(Color.RED);
             }
         }
+
+        SquareState[2][2].setFreeSpace(true);
+        SquareState[2][2].setFreeSpaceText("Free Space");
+        SquareState[2][2].setFontSize(20f);
 
         BingoState = new BingoState();
         BingoState.setBaseBackgroundColor(Color.WHITE);
@@ -121,17 +129,24 @@ public class MainView extends JPanel {
         CustomizeButton.addActionListener(e -> MainView.this.CustomizeWindow.setVisible(true));
 
         SimulationButton = new GrandButton("Simulation");
-        SimulationWindow = new SimulationWindow(PreviewWindow.getBingoState());
+
         SimulationButton.addActionListener(e -> {
-            SimulationWindow.setVisible(!SimulationWindow.isVisible());
-            SimulationButton.setText(
-                    SimulationWindow.isVisible() ? "Close Simulation" : "Start Simulation");
+            StartSimulationWindow = new StartSimulationWindow();
+            StartSimulationWindow.setSimulationCloseHandler((int board, int age, int seed, int winner)->{
+                System.out.println("SS Window Handler");
+                SimulationWindow = new SimulationWindow(PreviewWindow.getBingoState(), board, age, seed, winner);
+                SimulationWindow.setVisible(true);
+                SimulationWindow.setWindowCloseListener(() -> {
+                    SimulationWindow.setVisible(!SimulationWindow.isVisible());
+                    SimulationButton.setEnabled(true);
+                    SimulationButton.setText(
+                            SimulationWindow.isVisible() ? "Close Simulation" : "Start Simulation");
+                });
+            });
+            StartSimulationWindow.setVisible(true);
+            SimulationButton.setEnabled(false);
         });
-        SimulationWindow.setWindowCloseListener(() -> {
-            SimulationWindow.setVisible(!SimulationWindow.isVisible());
-            SimulationButton.setText(
-                    SimulationWindow.isVisible() ? "Close Simulation" : "Start Simulation");
-        });
+
 
         PrintButton = new GrandButton("Print");
 
