@@ -27,39 +27,20 @@ public class SimulationPanel extends JPanel {
 
     private GroupLayout SimulationPanelLayout;
 
-    private int[][][] BingoBoardNumbers;
-
-    private boolean[][][] BingoSquareSelected;
-
-    private GenerateBingoTiles BingoGenerator;
-
-    private int BingoTurn;
-
     private int CurrentCardNumber;
 
     private NumberField CardNumberSelector;
 
-    private int BingoBoardCount;
-
-    private int DayCount;
-
-    private int Seed;
-
-    private int Winners;
-
-    private ArrayList<Integer> GameWinnerCards;
-
     private SimulationChangeGraph SimulationChangeGraph;
 
-    public SimulationPanel(BingoState State, int BingoBoardCount, int DayCount, int Seed, int Winners) {
+    private SimulationState SimulationState;
+
+    private SimulationResultsWindow SimulationResultsWindow;
+
+    public SimulationPanel(BingoState BingoState, SimulationState SimulationState) {
         super();
 
-        this.BingoBoardCount = BingoBoardCount;
-        this.DayCount = DayCount;
-        this.Seed = Seed;
-        this.Winners = Winners;
-
-        GameWinnerCards = new ArrayList<>(Winners);
+        this.SimulationState = SimulationState;
 
         SimulationPanelLayout = new GroupLayout(this);
         super.setLayout(SimulationPanelLayout);
@@ -69,7 +50,7 @@ public class SimulationPanel extends JPanel {
         SimulationHistory = new JTable(SimulationHistoryModel);
         SimulationHistoryScrollPane = new JScrollPane(SimulationHistory);
 
-        BingoPanel = new BingoPanel(State);
+        BingoPanel = new BingoPanel(BingoState);
         Dimension WindowDimension = Toolkit.getDefaultToolkit().getScreenSize();
         BingoPanel.setPreferredSize(  new Dimension( (int)WindowDimension.getHeight() * 13/16 * 5/6 , (int)WindowDimension.getHeight() * 13/16));
         BingoPanel.setMaximumSize(  new Dimension( (int)WindowDimension.getHeight() * 13/16 * 5/6 , (int)WindowDimension.getHeight() * 13/16));
@@ -79,38 +60,30 @@ public class SimulationPanel extends JPanel {
         SimulationHistoryModel.addColumn("Amount of Winners");
         SimulationHistoryModel.addColumn("Bingo Winners");
 
-        BingoGenerator = new GenerateBingoTiles(Seed);
-        BingoBoardNumbers = new int[BingoBoardCount][5][5];
-        BingoSquareSelected = new boolean[BingoBoardCount][5][5];
-        for (int i = 0; i < BingoBoardCount; i++) {
-            for (int j = 0; j < 5; j++) {
-                for (int k = 0; k < 5; k++) {
-                    BingoSquareSelected[i][j][k] = false;
-                }
-            }
-        }
-        for (int i = 0; i < BingoBoardCount; i++) {
-            BingoBoardNumbers[i] = BingoGenerator.GenerateBingoTileSquare();
-        }
-
-        BingoTurn = 1;
         CurrentCardNumber = 0;
         shuffle(CurrentCardNumber);
 
         RollButton = new JButton("Roll Button");
         RollButton.addActionListener(e->{
-            int num = BingoGenerator.GenerateBingoNumber();
+            int num = SimulationState.getBingoGenerator().GenerateBingoNumber();
+            SimulationState.getRolledBalls().add(num);
             setNumber(num);
-            SimulationChangeGraph.add(BingoTurn, GameWinnerCards.size());
-            SimulationHistoryModel.addRow(new String[]{ BingoTurn + "", num + "", GameWinnerCards.size() + "", GameWinnerCards.toString() });
-            if (BingoTurn++ == 75) {
+            SimulationChangeGraph.add(SimulationState.getBingoTurn(), SimulationState.getGameWinnerCards().size());
+            SimulationHistoryModel.addRow(new String[]{
+                    SimulationState.getBingoTurn() + "",
+                    num + "",
+                    SimulationState.getGameWinnerCards().size() + "",
+                    SimulationState.getGameWinnerCards().toString()
+            });
+            SimulationState.setBingoTurn(SimulationState.getBingoTurn()+1);
+            if (SimulationState.getBingoTurn() == 75) {
                 RollButton.setEnabled(false);
             }
         });
 
         CardNumberSelector = new NumberField();
         CardNumberSelector.setLabelText("Card Number");
-        CardNumberSelector.getNumberField().setModel(new SpinnerNumberModel(0, 0, BingoBoardCount-1, 1));
+        CardNumberSelector.getNumberField().setModel(new SpinnerNumberModel(0, 0, SimulationState.getBingoBoardCount()-1, 1));
         CardNumberSelector.getNumberField().addChangeListener(e->{
             CurrentCardNumber = (int) CardNumberSelector.getNumberField().getValue();
             shuffle(CurrentCardNumber);
@@ -152,8 +125,8 @@ public class SimulationPanel extends JPanel {
         BingoSquareState[][] State = BingoPanel.getBingoState().getBingoSquares();
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
-                State[i][j].setSquareNumber(BingoBoardNumbers[CardNumber][i][j] + "");
-                if (State[i][j].isFreeSpace() || BingoSquareSelected[CardNumber][i][j] ) {
+                State[i][j].setSquareNumber(SimulationState.getBingoBoardNumbers()[CardNumber][i][j] + "");
+                if (State[i][j].isFreeSpace() || SimulationState.getBingoSquareSelected()[CardNumber][i][j] ) {
                     State[i][j].setSelected(true);
                 }
                 else {
@@ -164,20 +137,20 @@ public class SimulationPanel extends JPanel {
     }
 
     public void setNumber(int num) {
-        for (int i = 0; i < BingoBoardNumbers.length; i++) {
+        for (int i = 0; i < SimulationState.getBingoBoardNumbers().length; i++) {
             for (int j = 0; j < 5; j++) {
                 for (int k = 0; k < 5; k++) {
-                    if (BingoBoardNumbers[i][j][k] == num) {
-                        BingoSquareSelected[i][j][k] = true;
+                    if (SimulationState.getBingoBoardNumbers()[i][j][k] == num) {
+                        SimulationState.getBingoSquareSelected()[i][j][k] = true;
                         if (i == CurrentCardNumber) {
                             BingoPanel.getBingoState().getBingoSquares()[j][k].setSelected(true);
                         }
                     }
                 }
             }
-            if (checkBingo(BingoSquareSelected[i])) {
-                GameWinnerCards.add(i);
-                if (GameWinnerCards.size() == Winners) {
+            if (checkBingo(SimulationState.getBingoSquareSelected()[i])) {
+                SimulationState.getGameWinnerCards().add(i);
+                if (SimulationState.getGameWinnerCards().size() == SimulationState.getWinners()) {
                     RollButton.setEnabled(false);
                     JOptionPane.showMessageDialog(
                             this,
@@ -185,6 +158,8 @@ public class SimulationPanel extends JPanel {
                             "Simulation Ended",
                             JOptionPane.INFORMATION_MESSAGE
                     );
+                    SimulationResultsWindow = new SimulationResultsWindow(SimulationState);
+                    SimulationResultsWindow.setVisible(true);
                     return;
                 }
             }

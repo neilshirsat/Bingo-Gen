@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.ArrayList;
 
 public class SimulationWindow extends JFrame {
 
@@ -13,8 +14,26 @@ public class SimulationWindow extends JFrame {
 
     private io.neilshirsat.util.WindowCloseListener WindowCloseListener;
 
+    private SimulationState State;
+
     public SimulationWindow(BingoState BingoState, int BingoBoardCount, int DayCount, int Seed, int Winners) {
         super();
+
+        State = new SimulationState();
+        State.setBingoBoardCount(BingoBoardCount);
+        State.setDayCount(DayCount);
+        State.setSeed(Seed);
+        State.setWinners(Winners);
+        State.setBingoTurn(1);
+        State.setBingoGenerator(new GenerateBingoTiles(State.getSeed()));
+        State.setRolledBalls(new ArrayList<>(75));
+        State.setGameWinnerCards(new ArrayList<>(State.getWinners()));
+        State.setBingoBoardNumbers(new int[State.getBingoBoardCount()][5][5]);
+        State.setBingoSquareSelected(new boolean[State.getBingoBoardCount()][5][5]);
+
+        for (int i = 0; i < State.getBingoBoardCount(); i++) {
+            State.getBingoBoardNumbers()[i] = State.getBingoGenerator().GenerateBingoTileSquare();
+        }
 
         super.setTitle("Bingo Simulation");
         super.setDefaultCloseOperation(HIDE_ON_CLOSE);
@@ -67,7 +86,7 @@ public class SimulationWindow extends JFrame {
             }
         });
 
-        SimulationPanel = new SimulationPanel(BingoState, BingoBoardCount, DayCount, Seed, Winners);
+        SimulationPanel = new SimulationPanel(BingoState, State);
 
         super.setContentPane(SimulationPanel);
         super.pack();
