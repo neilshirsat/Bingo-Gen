@@ -47,6 +47,8 @@ public class MainView extends JPanel {
 
     private SettingsPanel SettingsTab;
 
+    private InfoPanel InfoTab;
+
     public MainView() {
         super();
 
@@ -166,6 +168,8 @@ public class MainView extends JPanel {
 
         SettingsTab = new SettingsPanel();
 
+        InfoTab = new InfoPanel();
+
         MainViewTabs = new VerticalTabs();
         MainViewTabs.addTab(
                 "Style the Bingo",
@@ -178,6 +182,10 @@ public class MainView extends JPanel {
         MainViewTabs.addTab(
                 "Start Simulation",
                 SimulationBingoTab
+        );
+        MainViewTabs.addTab(
+                "Info",
+                InfoTab
         );
         MainViewTabs.addTab(
                 "Settings",

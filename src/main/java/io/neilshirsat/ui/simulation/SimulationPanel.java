@@ -49,6 +49,8 @@ public class SimulationPanel extends JPanel {
 
     private ArrayList<Integer> GameWinnerCards;
 
+    private SimulationChangeGraph SimulationChangeGraph;
+
     public SimulationPanel(BingoState State, int BingoBoardCount, int DayCount, int Seed, int Winners) {
         super();
 
@@ -70,7 +72,7 @@ public class SimulationPanel extends JPanel {
         BingoPanel = new BingoPanel(State);
         Dimension WindowDimension = Toolkit.getDefaultToolkit().getScreenSize();
         BingoPanel.setPreferredSize(  new Dimension( (int)WindowDimension.getHeight() * 13/16 * 5/6 , (int)WindowDimension.getHeight() * 13/16));
-        BingoPanel.setMaximumSize(  new Dimension( (int)WindowDimension.getHeight() * 5/6 , (int)WindowDimension.getHeight()));
+        BingoPanel.setMaximumSize(  new Dimension( (int)WindowDimension.getHeight() * 13/16 * 5/6 , (int)WindowDimension.getHeight() * 13/16));
 
         SimulationHistoryModel.addColumn("No.");
         SimulationHistoryModel.addColumn("Bingo Square Called");
@@ -99,6 +101,7 @@ public class SimulationPanel extends JPanel {
         RollButton.addActionListener(e->{
             int num = BingoGenerator.GenerateBingoNumber();
             setNumber(num);
+            SimulationChangeGraph.add(BingoTurn, GameWinnerCards.size());
             SimulationHistoryModel.addRow(new String[]{ BingoTurn + "", num + "", GameWinnerCards.size() + "", GameWinnerCards.toString() });
             if (BingoTurn++ == 75) {
                 RollButton.setEnabled(false);
@@ -112,6 +115,9 @@ public class SimulationPanel extends JPanel {
             CurrentCardNumber = (int) CardNumberSelector.getNumberField().getValue();
             shuffle(CurrentCardNumber);
         });
+
+        SimulationChangeGraph = new SimulationChangeGraph();
+        SimulationChangeGraph.setVisible(true);
 
         SimulationPanelLayout.setHorizontalGroup(SimulationPanelLayout.createParallelGroup()
                 .addGroup(SimulationPanelLayout.createSequentialGroup()
@@ -139,6 +145,7 @@ public class SimulationPanel extends JPanel {
                         .addGap(20)
                 )
         );
+
     }
 
     public void shuffle(int CardNumber) {

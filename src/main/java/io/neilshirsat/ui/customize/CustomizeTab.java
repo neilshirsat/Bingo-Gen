@@ -20,6 +20,14 @@ public class CustomizeTab extends JPanel {
 
     private JButton CustomizeButton;
 
+    private JButton BingoWideCustomizeButton;
+
+    private BingoWideCustomizeWindow BingoWideCustomizeWindow;
+
+    private JButton BingoTitleCustomizeButton;
+
+    private BingoTitleCustomizeWindow BingoTitleCustomizeWindow;
+
     private CustomizeWindow CustomizeWindow;
 
     private GroupLayout CustomizeTabLayout;
@@ -40,124 +48,131 @@ public class CustomizeTab extends JPanel {
         SetBingoStylesList.add("Ocean");
         SetBingoStylesList.add("Ocean Circles");
         SetBingoStylesList.add("Custom");
-        SetBingoStyle = new Select<String>(setStringArray(SetBingoStylesList));
+        SetBingoStyle = new Select<>(setStringArray(SetBingoStylesList));
         SetBingoStyle.setLabel("Bingo Theme: ");
         SetBingoStyle.getSelectList().addActionListener(e->{
             String value = (String) SetBingoStyle.getSelectList().getSelectedItem();
 
             assert value != null;
-            if (value.equals("Dark")) {
-
-                State.setBaseBackgroundColor(Color.BLACK);
-                
-                for (int i = 0; i < 5; i++){
-                    State.getTitleSquares()[i].setTextColor(Color.YELLOW);
-                    State.getTitleSquares()[i].setBorderColor(Color.WHITE);
-                    State.getTitleSquares()[i].setBackgroundColor(Color.BLACK);
-                    State.getTitleSquares()[i].setBorderThickness(2);
-                    State.getTitleSquares()[i].setShape(ShapeType.CIRCLE);
-                }
-
-                for (int i = 0; i < 5; i++){
-                    for (int j = 0; j < 5; j++){
-                        State.getBingoSquares()[i][j].setTextColor(Color.YELLOW);
-                        State.getBingoSquares()[i][j].setBorderColor(Color.WHITE);
-                        State.getBingoSquares()[i][j].setBackgroundColor(Color.BLACK);
-                        State.getBingoSquares()[i][j].setBorderThickness(2);
-                        State.getBingoSquares()[i][j].setShape(ShapeType.RECTANGLE);
-                        State.getBingoSquares()[i][j].setSelectedColor(Color.BLUE);
+            switch (value) {
+                case "Light" -> {
+                    State.setBaseBackgroundColor(Color.WHITE);
+                    for (int i = 0; i < 5; i++) {
+                        State.getTitleSquares()[i].setTextColor(Color.BLACK);
+                        State.getTitleSquares()[i].setBorderColor(Color.BLACK);
+                        State.getTitleSquares()[i].setBackgroundColor(Color.WHITE);
+                        State.getTitleSquares()[i].setBorderThickness(2);
+                        State.getTitleSquares()[i].setShape(ShapeType.CIRCLE);
+                    }
+                    for (int i = 0; i < 5; i++) {
+                        for (int j = 0; j < 5; j++) {
+                            State.getBingoSquares()[i][j].setTextColor(Color.BLACK);
+                            State.getBingoSquares()[i][j].setBorderColor(Color.BLACK);
+                            State.getBingoSquares()[i][j].setBackgroundColor(Color.WHITE);
+                            State.getBingoSquares()[i][j].setBorderThickness(2);
+                            State.getBingoSquares()[i][j].setShape(ShapeType.RECTANGLE);
+                            State.getBingoSquares()[i][j].setSelectedColor(Color.BLUE);
+                        }
                     }
                 }
-            }
-            else if (value.equals("Dark Squares")) {
-
-                State.setBaseBackgroundColor(Color.BLACK);
-
-                for (int i = 0; i < 5; i++){
-                    State.getTitleSquares()[i].setTextColor(Color.YELLOW);
-                    State.getTitleSquares()[i].setBorderColor(Color.WHITE);
-                    State.getTitleSquares()[i].setBackgroundColor(Color.BLACK);
-                    State.getTitleSquares()[i].setBorderThickness(2);
-                    State.getTitleSquares()[i].setShape(ShapeType.RECTANGLE);
-                }
-
-                for (int i = 0; i < 5; i++){
-                    for (int j = 0; j < 5; j++){
-                        State.getBingoSquares()[i][j].setTextColor(Color.YELLOW);
-                        State.getBingoSquares()[i][j].setBorderColor(Color.WHITE);
-                        State.getBingoSquares()[i][j].setBackgroundColor(Color.BLACK);
-                        State.getBingoSquares()[i][j].setBorderThickness(2);
-                        State.getBingoSquares()[i][j].setShape(ShapeType.RECTANGLE);
-                        State.getBingoSquares()[i][j].setSelectedColor(Color.BLUE);
+                case "Dark" -> {
+                    State.setBaseBackgroundColor(Color.BLACK);
+                    for (int i = 0; i < 5; i++) {
+                        State.getTitleSquares()[i].setTextColor(Color.YELLOW);
+                        State.getTitleSquares()[i].setBorderColor(Color.WHITE);
+                        State.getTitleSquares()[i].setBackgroundColor(Color.BLACK);
+                        State.getTitleSquares()[i].setBorderThickness(2);
+                        State.getTitleSquares()[i].setShape(ShapeType.CIRCLE);
+                    }
+                    for (int i = 0; i < 5; i++) {
+                        for (int j = 0; j < 5; j++) {
+                            State.getBingoSquares()[i][j].setTextColor(Color.YELLOW);
+                            State.getBingoSquares()[i][j].setBorderColor(Color.WHITE);
+                            State.getBingoSquares()[i][j].setBackgroundColor(Color.BLACK);
+                            State.getBingoSquares()[i][j].setBorderThickness(2);
+                            State.getBingoSquares()[i][j].setShape(ShapeType.RECTANGLE);
+                            State.getBingoSquares()[i][j].setSelectedColor(Color.BLUE);
+                        }
                     }
                 }
-            }
-            else if (value.equals("Black & Red")) {
-
-                State.setBaseBackgroundColor(Color.BLACK);
-
-                for (int i = 0; i < 5; i++){
-                    State.getTitleSquares()[i].setTextColor(Color.RED);
-                    State.getTitleSquares()[i].setBorderColor(Color.RED);
-                    State.getTitleSquares()[i].setBackgroundColor(Color.BLACK);
-                    State.getTitleSquares()[i].setBorderThickness(2);
-                    State.getTitleSquares()[i].setShape(ShapeType.CIRCLE);
-                }
-
-                for (int i = 0; i < 5; i++){
-                    for (int j = 0; j < 5; j++){
-                        State.getBingoSquares()[i][j].setTextColor(Color.RED);
-                        State.getBingoSquares()[i][j].setBorderColor(Color.RED);
-                        State.getBingoSquares()[i][j].setBackgroundColor(Color.BLACK);
-                        State.getBingoSquares()[i][j].setBorderThickness(2);
-                        State.getBingoSquares()[i][j].setShape(ShapeType.RECTANGLE);
-                        State.getBingoSquares()[i][j].setSelectedColor(Color.BLUE);
+                case "Dark Squares" -> {
+                    State.setBaseBackgroundColor(Color.BLACK);
+                    for (int i = 0; i < 5; i++) {
+                        State.getTitleSquares()[i].setTextColor(Color.YELLOW);
+                        State.getTitleSquares()[i].setBorderColor(Color.WHITE);
+                        State.getTitleSquares()[i].setBackgroundColor(Color.BLACK);
+                        State.getTitleSquares()[i].setBorderThickness(2);
+                        State.getTitleSquares()[i].setShape(ShapeType.RECTANGLE);
+                    }
+                    for (int i = 0; i < 5; i++) {
+                        for (int j = 0; j < 5; j++) {
+                            State.getBingoSquares()[i][j].setTextColor(Color.YELLOW);
+                            State.getBingoSquares()[i][j].setBorderColor(Color.WHITE);
+                            State.getBingoSquares()[i][j].setBackgroundColor(Color.BLACK);
+                            State.getBingoSquares()[i][j].setBorderThickness(2);
+                            State.getBingoSquares()[i][j].setShape(ShapeType.RECTANGLE);
+                            State.getBingoSquares()[i][j].setSelectedColor(Color.BLUE);
+                        }
                     }
                 }
-            }
-            else if (value.equals("Ocean")) {
-
-                State.setBaseBackgroundColor(new Color(0, 174, 255));
-
-                for (int i = 0; i < 5; i++){
-                    State.getTitleSquares()[i].setTextColor(Color.BLACK);
-                    State.getTitleSquares()[i].setBorderColor(Color.BLACK);
-                    State.getTitleSquares()[i].setBackgroundColor(new Color(0, 174, 255));
-                    State.getTitleSquares()[i].setBorderThickness(2);
-                    State.getTitleSquares()[i].setShape(ShapeType.CIRCLE);
-                }
-
-                for (int i = 0; i < 5; i++){
-                    for (int j = 0; j < 5; j++){
-                        State.getBingoSquares()[i][j].setTextColor(Color.BLACK);
-                        State.getBingoSquares()[i][j].setBorderColor(Color.BLACK);
-                        State.getBingoSquares()[i][j].setBackgroundColor(new Color(0, 174, 255));
-                        State.getBingoSquares()[i][j].setBorderThickness(2);
-                        State.getBingoSquares()[i][j].setShape(ShapeType.RECTANGLE);
-                        State.getBingoSquares()[i][j].setSelectedColor(Color.GREEN);
+                case "Black & Red" -> {
+                    State.setBaseBackgroundColor(Color.BLACK);
+                    for (int i = 0; i < 5; i++) {
+                        State.getTitleSquares()[i].setTextColor(Color.RED);
+                        State.getTitleSquares()[i].setBorderColor(Color.RED);
+                        State.getTitleSquares()[i].setBackgroundColor(Color.BLACK);
+                        State.getTitleSquares()[i].setBorderThickness(2);
+                        State.getTitleSquares()[i].setShape(ShapeType.CIRCLE);
+                    }
+                    for (int i = 0; i < 5; i++) {
+                        for (int j = 0; j < 5; j++) {
+                            State.getBingoSquares()[i][j].setTextColor(Color.RED);
+                            State.getBingoSquares()[i][j].setBorderColor(Color.RED);
+                            State.getBingoSquares()[i][j].setBackgroundColor(Color.BLACK);
+                            State.getBingoSquares()[i][j].setBorderThickness(2);
+                            State.getBingoSquares()[i][j].setShape(ShapeType.RECTANGLE);
+                            State.getBingoSquares()[i][j].setSelectedColor(Color.BLUE);
+                        }
                     }
                 }
-            }
-            else if (value.equals("Ocean Circles")) {
-
-                State.setBaseBackgroundColor(new Color(0, 174, 255));
-
-                for (int i = 0; i < 5; i++){
-                    State.getTitleSquares()[i].setTextColor(Color.BLACK);
-                    State.getTitleSquares()[i].setBorderColor(Color.BLACK);
-                    State.getTitleSquares()[i].setBackgroundColor(new Color(0, 174, 255));
-                    State.getTitleSquares()[i].setBorderThickness(2);
-                    State.getTitleSquares()[i].setShape(ShapeType.RECTANGLE);
+                case "Ocean" -> {
+                    State.setBaseBackgroundColor(new Color(0, 174, 255));
+                    for (int i = 0; i < 5; i++) {
+                        State.getTitleSquares()[i].setTextColor(Color.BLACK);
+                        State.getTitleSquares()[i].setBorderColor(Color.BLACK);
+                        State.getTitleSquares()[i].setBackgroundColor(new Color(0, 174, 255));
+                        State.getTitleSquares()[i].setBorderThickness(2);
+                        State.getTitleSquares()[i].setShape(ShapeType.CIRCLE);
+                    }
+                    for (int i = 0; i < 5; i++) {
+                        for (int j = 0; j < 5; j++) {
+                            State.getBingoSquares()[i][j].setTextColor(Color.BLACK);
+                            State.getBingoSquares()[i][j].setBorderColor(Color.BLACK);
+                            State.getBingoSquares()[i][j].setBackgroundColor(new Color(0, 174, 255));
+                            State.getBingoSquares()[i][j].setBorderThickness(2);
+                            State.getBingoSquares()[i][j].setShape(ShapeType.RECTANGLE);
+                            State.getBingoSquares()[i][j].setSelectedColor(Color.GREEN);
+                        }
+                    }
                 }
-
-                for (int i = 0; i < 5; i++){
-                    for (int j = 0; j < 5; j++){
-                        State.getBingoSquares()[i][j].setTextColor(Color.BLACK);
-                        State.getBingoSquares()[i][j].setBorderColor(Color.BLACK);
-                        State.getBingoSquares()[i][j].setBackgroundColor(new Color(0, 174, 255));
-                        State.getBingoSquares()[i][j].setBorderThickness(2);
-                        State.getBingoSquares()[i][j].setShape(ShapeType.CIRCLE);
-                        State.getBingoSquares()[i][j].setSelectedColor(Color.GREEN);
+                case "Ocean Circles" -> {
+                    State.setBaseBackgroundColor(new Color(0, 174, 255));
+                    for (int i = 0; i < 5; i++) {
+                        State.getTitleSquares()[i].setTextColor(Color.BLACK);
+                        State.getTitleSquares()[i].setBorderColor(Color.BLACK);
+                        State.getTitleSquares()[i].setBackgroundColor(new Color(0, 174, 255));
+                        State.getTitleSquares()[i].setBorderThickness(2);
+                        State.getTitleSquares()[i].setShape(ShapeType.RECTANGLE);
+                    }
+                    for (int i = 0; i < 5; i++) {
+                        for (int j = 0; j < 5; j++) {
+                            State.getBingoSquares()[i][j].setTextColor(Color.BLACK);
+                            State.getBingoSquares()[i][j].setBorderColor(Color.BLACK);
+                            State.getBingoSquares()[i][j].setBackgroundColor(new Color(0, 174, 255));
+                            State.getBingoSquares()[i][j].setBorderThickness(2);
+                            State.getBingoSquares()[i][j].setShape(ShapeType.CIRCLE);
+                            State.getBingoSquares()[i][j].setSelectedColor(Color.GREEN);
+                        }
                     }
                 }
             }
@@ -165,18 +180,45 @@ public class CustomizeTab extends JPanel {
         });
 
         CustomizeWindow = new CustomizeWindow(State);
-        CustomizeButton = new JButton("Customize Bingo Styling");
+        CustomizeButton = new JButton("Customize Individual Bingo Square Styling");
         CustomizeButton.addActionListener(e -> {
             CustomizeTab.this.CustomizeWindow.setVisible(true);
             SwingUtilities.updateComponentTreeUI(SwingUtilities.getRoot(CustomizeWindow));
+            SetBingoStyle.getSelectList().setSelectedItem("Custom");
+        });
+
+        BingoWideCustomizeWindow = new BingoWideCustomizeWindow(State);
+        BingoWideCustomizeButton = new JButton("Customize Bingo Wide Styling");
+        BingoWideCustomizeButton.addActionListener(e -> {
+            CustomizeTab.this.BingoWideCustomizeWindow.setVisible(true);
+            SwingUtilities.updateComponentTreeUI(SwingUtilities.getRoot(BingoWideCustomizeWindow));
+            SetBingoStyle.getSelectList().setSelectedItem("Custom");
+        });
+
+        BingoTitleCustomizeWindow = new BingoTitleCustomizeWindow(State);
+        BingoTitleCustomizeButton = new JButton("Customize Bingo Title Styling");
+        BingoTitleCustomizeButton.addActionListener(e -> {
+            CustomizeTab.this.BingoTitleCustomizeWindow.setVisible(true);
+            SwingUtilities.updateComponentTreeUI(SwingUtilities.getRoot(BingoTitleCustomizeWindow));
+            SetBingoStyle.getSelectList().setSelectedItem("Custom");
         });
 
         CustomizeTabLayout.setHorizontalGroup(CustomizeTabLayout.createParallelGroup()
                 .addComponent(SetBingoStyle)
+                .addGap(20)
+                .addComponent(BingoTitleCustomizeButton)
+                .addGap(20)
+                .addComponent(BingoWideCustomizeButton)
+                .addGap(20)
                 .addComponent(CustomizeButton)
         );
         CustomizeTabLayout.setVerticalGroup(CustomizeTabLayout.createSequentialGroup()
                 .addComponent(SetBingoStyle)
+                .addGap(20)
+                .addComponent(BingoTitleCustomizeButton)
+                .addGap(20)
+                .addComponent(BingoWideCustomizeButton)
+                .addGap(20)
                 .addComponent(CustomizeButton)
         );
 

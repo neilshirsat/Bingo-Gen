@@ -18,10 +18,10 @@ application {
 }
 
 dependencies {
-    implementation 'io.github.vincenzopalazzo:material-ui-swing:1.1.2'
     implementation 'com.formdev:flatlaf:1.5'
     implementation 'com.formdev:flatlaf-intellij-themes:1.5'
-    implementation "com.github.weisj:darklaf-core:2.7.2"
+    implementation 'com.vladsch.flexmark:flexmark-all:0.62.2'
+    implementation 'org.knowm.xchart:xchart:3.8.1'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 }

@@ -3,7 +3,11 @@ package io.neilshirsat.ui.main;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.intellijthemes.*;
-import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatDraculaContrastIJTheme;
+import com.formdev.flatlaf.intellijthemes.FlatArcDarkIJTheme;
+import com.formdev.flatlaf.intellijthemes.FlatDraculaIJTheme;
+import com.formdev.flatlaf.intellijthemes.FlatSolarizedDarkIJTheme;
+import com.formdev.flatlaf.intellijthemes.FlatSolarizedLightIJTheme;
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.*;
 import io.neilshirsat.components.select.Select;
 import io.neilshirsat.ui.bingo.BingoState;
 import io.neilshirsat.ui.customize.CustomizeTab;
@@ -36,7 +40,28 @@ public class SettingsPanel extends JPanel {
         WindowThemes.add("Carbon");
         WindowThemes.add("Dracula");
         WindowThemes.add("Dracula Contrast");
+        WindowThemes.add("Material Lighter");
+        WindowThemes.add("Material Lighter Contrast");
+        WindowThemes.add("Material Darker");
+        WindowThemes.add("Material Darker Contrast");
+        WindowThemes.add("Material Oceanic");
+        WindowThemes.add("Material Oceanic Contrast");
+        WindowThemes.add("Material Oceanic");
+        WindowThemes.add("Material Oceanic Contrast");
+        WindowThemes.add("Material Deep Ocean");
+        WindowThemes.add("Material Deep Ocean Contrast");
+        WindowThemes.add("Material Design Dark");
+        WindowThemes.add("Material Palenight");
+        WindowThemes.add("Material Palenight Contrast");
         WindowThemes.add("One Dark Theme");
+        WindowThemes.add("Solarized Light");
+        WindowThemes.add("Solarized Light Contrast");
+        WindowThemes.add("Solarized Dark");
+        WindowThemes.add("Solarized Dark Contrast");
+        WindowThemes.add("Github Light");
+        WindowThemes.add("Github Light Contrast");
+        WindowThemes.add("Github Dark");
+        WindowThemes.add("Github Dark Contrast");
         WindowThemes.add("Arc");
         WindowThemes.add("Arc Orange");
         WindowThemes.add("Arc Dark");
@@ -48,73 +73,125 @@ public class SettingsPanel extends JPanel {
         WindowThemes.add("Gradianto Midnight Blue");
         WindowThemes.add("Gradianto Nature Green");
         WindowThemes.add("OS Theme - NOT RECOMMENDED FOR USE");
-        WindowThemes.add("Custom");
-        SetWindowTheme = new Select<String>(setStringArray(WindowThemes));
+        SetWindowTheme = new Select<>(setStringArray(WindowThemes));
         SetWindowTheme.setLabel("Bingo Theme: ");
         SetWindowTheme.getSelectList().addActionListener(e->{
             String value = (String) SetWindowTheme.getSelectList().getSelectedItem();
 
             assert value != null;
-            if (value.equals("Light")) {
-                FlatLightLaf.setup();
-            }
-            else if (value.equals("Dark")) {
-                FlatDarkLaf.setup();
-            }
-            else if (value.equals("Carbon")) {
-                FlatCarbonIJTheme.setup();
-            }
-            else if (value.equals("Dracula")) {
-                FlatDraculaIJTheme.setup();
-            }
-            else if (value.equals("Dracula Contrast")) {
-                FlatDraculaContrastIJTheme.setup();
-            }
-            else if (value.equals("One Dark Theme")) {
-                FlatOneDarkIJTheme.setup();
-            }
-            else if (value.equals("Arc")) {
-                FlatArcIJTheme.setup();
-            }
-            else if (value.equals("Arc Orange")) {
-                FlatArcOrangeIJTheme.setup();
-            }
-            else if (value.equals("Arc Dark")) {
-                FlatArcDarkIJTheme.setup();
-            }
-            else if (value.equals("Cobalt 2")) {
-                FlatCobalt2IJTheme.setup();
-            }
-            else if (value.equals("Cyan Light")) {
-                FlatCyanLightIJTheme.setup();
-            }
-            else if (value.equals("Dark Purple")) {
-                FlatDarkPurpleIJTheme.setup();
-            }
-            else if (value.equals("Gradianto Dark Fuchsia")) {
-                FlatGradiantoDarkFuchsiaIJTheme.setup();
-            }
-            else if (value.equals("Gradianto Deep Ocean")) {
-                FlatGradiantoDeepOceanIJTheme.setup();
-            }
-            else if (value.equals("Gradianto Midnight Blue")) {
-                FlatGradiantoMidnightBlueIJTheme.setup();
-            }
-            else if (value.equals("Gradianto Nature Green")) {
-                FlatGradiantoNatureGreenIJTheme.setup();
-            }
-            else if (value.equals("OS Theme - NOT RECOMMENDED FOR USE")) {
-                try {
-                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-                } catch (ClassNotFoundException ex) {
-                    ex.printStackTrace();
-                } catch (InstantiationException ex) {
-                    ex.printStackTrace();
-                } catch (IllegalAccessException ex) {
-                    ex.printStackTrace();
-                } catch (UnsupportedLookAndFeelException ex) {
-                    ex.printStackTrace();
-                }
+            switch (value) {
+                case "Light":
+                    FlatLightLaf.setup();
+                    break;
+                case "Dark":
+                    FlatDarkLaf.setup();
+                    break;
+                case "Carbon":
+                    FlatCarbonIJTheme.setup();
+                    break;
+                case "Dracula":
+                    FlatDraculaIJTheme.setup();
+                    break;
+                case "Dracula Contrast":
+                    FlatDraculaContrastIJTheme.setup();
+                    break;
+                case "Material Lighter":
+                    FlatMaterialLighterIJTheme.setup();
+                    break;
+                case "Material Darker":
+                    FlatMaterialDarkerIJTheme.setup();
+                    break;
+                case "Material Lighter Contrast":
+                    FlatMaterialLighterContrastIJTheme.setup();
+                    break;
+                case "Material Darker Contrast":
+                    FlatMaterialDarkerContrastIJTheme.setup();
+                    break;
+                case "Material Oceanic":
+                    FlatMaterialOceanicIJTheme.setup();
+                    break;
+                case "Material Oceanic Contrast":
+                    FlatMaterialOceanicContrastIJTheme.setup();
+                    break;
+                case "Material Deep Ocean":
+                    FlatMaterialDeepOceanIJTheme.setup();
+                    break;
+                case "Material Deep Ocean Contrast":
+                    FlatMaterialDeepOceanContrastIJTheme.setup();
+                    break;
+                case "Material Design Dark":
+                    FlatMaterialDesignDarkIJTheme.setup();
+                    break;
+                case "Material Palenight":
+                    FlatMaterialPalenightIJTheme.setup();
+                    break;
+                case "Material Palenight Contrast":
+                    FlatMaterialPalenightContrastIJTheme.setup();
+                    break;
+                case "One Dark Theme":
+                    FlatOneDarkIJTheme.setup();
+                    break;
+                case "Solarized Light":
+                    FlatSolarizedLightIJTheme.setup();
+                    break;
+                case "Solarized Light Contrast":
+                    FlatSolarizedLightContrastIJTheme.setup();
+                    break;
+                case "Solarized Dark":
+                    FlatSolarizedDarkIJTheme.setup();
+                    break;
+                case "Solarized Dark Contrast":
+                    FlatSolarizedDarkContrastIJTheme.setup();
+                    break;
+                case "Github Light":
+                    FlatGitHubIJTheme.setup();
+                    break;
+                case "Github Light Contrast":
+                    FlatGitHubContrastIJTheme.setup();
+                    break;
+                case "Github Dark":
+                    FlatGitHubDarkIJTheme.setup();
+                    break;
+                case "Github Dark Contrast":
+                    FlatGitHubDarkContrastIJTheme.setup();
+                    break;
+                case "Arc":
+                    FlatArcIJTheme.setup();
+                    break;
+                case "Arc Orange":
+                    FlatArcOrangeIJTheme.setup();
+                    break;
+                case "Arc Dark":
+                    FlatArcDarkIJTheme.setup();
+                    break;
+                case "Cobalt 2":
+                    FlatCobalt2IJTheme.setup();
+                    break;
+                case "Cyan Light":
+                    FlatCyanLightIJTheme.setup();
+                    break;
+                case "Dark Purple":
+                    FlatDarkPurpleIJTheme.setup();
+                    break;
+                case "Gradianto Dark Fuchsia":
+                    FlatGradiantoDarkFuchsiaIJTheme.setup();
+                    break;
+                case "Gradianto Deep Ocean":
+                    FlatGradiantoDeepOceanIJTheme.setup();
+                    break;
+                case "Gradianto Midnight Blue":
+                    FlatGradiantoMidnightBlueIJTheme.setup();
+                    break;
+                case "Gradianto Nature Green":
+                    FlatGradiantoNatureGreenIJTheme.setup();
+                    break;
+                case "OS Theme - NOT RECOMMENDED FOR USE":
+                    try {
+                        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                    } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+                        ex.printStackTrace();
+                    }
+                    break;
             }
             SwingUtilities.updateComponentTreeUI(SwingUtilities.getRoot(this));
 

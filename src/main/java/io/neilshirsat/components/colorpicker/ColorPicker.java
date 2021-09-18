@@ -44,6 +44,7 @@ public class ColorPicker extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         ColorPickerWindow.setVisible(true);
+        SwingUtilities.updateComponentTreeUI(SwingUtilities.getRoot(ColorPickerWindow));
     }
 
     public io.neilshirsat.components.colorpicker.ColorPickerWindow getColorPickerWindow() {

@@ -5,19 +5,15 @@ import com.formdev.flatlaf.intellijthemes.FlatCarbonIJTheme;
 import com.formdev.flatlaf.intellijthemes.FlatOneDarkIJTheme;
 import io.neilshirsat.ui.main.MainWindow;
 import io.neilshirsat.ui.startup.StartUpWindow;
-import mdlaf.MaterialLookAndFeel;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
 
-        FlatDarkLaf.setup();
-        UIManager.setLookAndFeel( new FlatDarkLaf() );
         FlatOneDarkIJTheme.setup();
-        FlatCarbonIJTheme.setup();
 
         StartUpWindow StartUpWindow = new StartUpWindow();
 

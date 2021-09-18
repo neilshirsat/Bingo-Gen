@@ -1,25 +1,25 @@
 package io.neilshirsat.ui.customize;
 
-import io.neilshirsat.ui.bingo.BingoSquareState;
+import io.neilshirsat.ui.bingo.BingoState;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class SquareCustomizeWindow extends JFrame {
+public class BingoTitleCustomizeWindow extends JFrame {
 
-    private SquareCustomizePanel SquareCustomizePanel;
+    private BingoTitleCustomizePanel BingoTitleCustomizePanel;
 
-    private BingoSquareState State;
+    private BingoState State;
 
-    public SquareCustomizeWindow(BingoSquareState State) {
+    public BingoTitleCustomizeWindow(BingoState State) {
         super();
         this.State = State;
 
-        super.setTitle("Customize Bingo Board");
+        super.setTitle("Customize Bingo Board Title");
         super.setDefaultCloseOperation(HIDE_ON_CLOSE);
 
-        SquareCustomizePanel = new SquareCustomizePanel(State);
-        super.setContentPane(SquareCustomizePanel);
+        BingoTitleCustomizePanel = new BingoTitleCustomizePanel(State);
+        super.setContentPane(BingoTitleCustomizePanel);
         super.pack();
 
         Dimension WindowDimension = Toolkit.getDefaultToolkit().getScreenSize();

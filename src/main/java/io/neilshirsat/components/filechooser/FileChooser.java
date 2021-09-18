@@ -23,9 +23,6 @@ public class FileChooser extends io.neilshirsat.components.textfield.TextField {
 
         this.Files = Files;
 
-        FileSelect = new JFileChooser();
-        FileSelect.setFileSelectionMode(Files);
-        FileSelect.setFileFilter(FileFilter);
         FolderChooserWindow = new JFrame();
 
         this.setInputColumns(40);
@@ -33,8 +30,12 @@ public class FileChooser extends io.neilshirsat.components.textfield.TextField {
                 new MouseListener() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
+                        FileSelect = new JFileChooser();
+                        FileSelect.setFileSelectionMode(Files);
+                        FileSelect.setFileFilter(FileFilter);
                         int option = FileChooser.this.FileSelect.showOpenDialog(
                                 FileChooser.this.FolderChooserWindow);
+                        FileSelect.updateUI();
                         if(option == JFileChooser.APPROVE_OPTION){
                             File file = FileChooser.this.FileSelect.getSelectedFile();
                             FileChooser.this.getTextField().setText(file.getAbsolutePath());
