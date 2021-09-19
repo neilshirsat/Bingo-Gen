@@ -30,6 +30,7 @@ public class SimulationWindow extends JFrame {
         State.setGameWinnerCards(new ArrayList<>(State.getWinners()));
         State.setBingoBoardNumbers(new int[State.getBingoBoardCount()][5][5]);
         State.setBingoSquareSelected(new boolean[State.getBingoBoardCount()][5][5]);
+        State.setIsBoardWinners(new boolean[State.getBingoBoardCount()]);
 
         for (int i = 0; i < State.getBingoBoardCount(); i++) {
             State.getBingoBoardNumbers()[i] = State.getBingoGenerator().GenerateBingoTileSquare();
@@ -89,12 +90,13 @@ public class SimulationWindow extends JFrame {
         SimulationPanel = new SimulationPanel(BingoState, State);
 
         super.setContentPane(SimulationPanel);
-        super.pack();
 
         Dimension WindowDimension = Toolkit.getDefaultToolkit().getScreenSize();
+        super.setSize(  new Dimension( (int)WindowDimension.getWidth() * 15/16 , (int)WindowDimension.getHeight() * 15/16));
         super.setLocation(WindowDimension.width/2-this.getSize().width/2,
                 WindowDimension.height/2-this.getSize().height/2
         );
+
     }
 
     public io.neilshirsat.util.WindowCloseListener getWindowCloseListener() {

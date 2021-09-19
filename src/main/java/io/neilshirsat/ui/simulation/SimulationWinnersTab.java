@@ -32,7 +32,7 @@ public class SimulationWinnersTab extends JPanel {
 
         for (int i = 0; i < State.getGameWinnerCards().size(); i++) {
             SimulationWinnersTableModel.addRow(new String[]{
-                    i + "",
+                    (i+1) + "",
                     State.getGameWinnerCards().get(i) + ""
             });
         }

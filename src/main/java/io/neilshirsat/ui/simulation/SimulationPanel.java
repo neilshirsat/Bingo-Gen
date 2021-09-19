@@ -31,11 +31,19 @@ public class SimulationPanel extends JPanel {
 
     private NumberField CardNumberSelector;
 
+    private JButton SimulationChangeGraphButton;
+
     private SimulationChangeGraph SimulationChangeGraph;
 
     private SimulationState SimulationState;
 
+    private JButton SimulationResultsButton;
+
     private SimulationResultsWindow SimulationResultsWindow;
+
+    private JButton SimulationExportButton;
+
+    private SimulationExportWindow SimulationExportWindow;
 
     public SimulationPanel(BingoState BingoState, SimulationState SimulationState) {
         super();
@@ -48,12 +56,14 @@ public class SimulationPanel extends JPanel {
 
         SimulationHistoryModel = new DefaultTableModel();
         SimulationHistory = new JTable(SimulationHistoryModel);
-        SimulationHistoryScrollPane = new JScrollPane(SimulationHistory);
+        SimulationHistoryScrollPane = new JScrollPane(SimulationHistory) {
+            @Override
+            public Dimension getPreferredSize() {
+                return new Dimension((int)(super.getParent().getSize().height * (9.0/16)), super.getParent().getSize().height);
+            }
+        };
 
         BingoPanel = new BingoPanel(BingoState);
-        Dimension WindowDimension = Toolkit.getDefaultToolkit().getScreenSize();
-        BingoPanel.setPreferredSize(  new Dimension( (int)WindowDimension.getHeight() * 13/16 * 5/6 , (int)WindowDimension.getHeight() * 13/16));
-        BingoPanel.setMaximumSize(  new Dimension( (int)WindowDimension.getHeight() * 13/16 * 5/6 , (int)WindowDimension.getHeight() * 13/16));
 
         SimulationHistoryModel.addColumn("No.");
         SimulationHistoryModel.addColumn("Bingo Square Called");
@@ -90,32 +100,62 @@ public class SimulationPanel extends JPanel {
         });
 
         SimulationChangeGraph = new SimulationChangeGraph();
-        SimulationChangeGraph.setVisible(true);
+        SimulationChangeGraphButton = new JButton("Show Winners Graph");
+        SimulationChangeGraphButton.addActionListener(e->{
+            SimulationChangeGraph.setVisible(true);
+        });
+
+        SimulationResultsButton = new JButton("Show Results");
+        SimulationResultsButton.setEnabled(false);
+        SimulationResultsButton.setVisible(false);
+        SimulationResultsButton.addActionListener(e->{
+            SimulationResultsWindow.setVisible(true);
+        });
+
+        SimulationExportWindow = new SimulationExportWindow(SimulationState, BingoState);
+        SimulationExportButton = new JButton("Export Bingo Boards");
+        SimulationExportButton.setEnabled(false);
+        SimulationExportButton.setVisible(false);
+        SimulationExportButton.addActionListener(e->{
+            SimulationExportWindow.setVisible(true);
+        });
 
         SimulationPanelLayout.setHorizontalGroup(SimulationPanelLayout.createParallelGroup()
                 .addGroup(SimulationPanelLayout.createSequentialGroup()
                         .addComponent(BingoPanel)
                         .addGap(20)
                         .addComponent(SimulationHistoryScrollPane)
-                )
-                .addGroup(SimulationPanelLayout.createParallelGroup()
-                        .addComponent(RollButton)
                         .addGap(20)
-                        .addComponent(CardNumberSelector)
-                        .addGap(20)
+                        .addGroup(SimulationPanelLayout.createParallelGroup( GroupLayout.Alignment.LEADING )
+                                .addComponent(RollButton)
+                                .addGap(20)
+                                .addComponent(CardNumberSelector)
+                                .addGap(20)
+                                .addComponent(SimulationChangeGraphButton)
+                                .addGap(20)
+                                .addComponent(SimulationResultsButton)
+                                .addGap(20)
+                                .addComponent(SimulationExportButton)
+                                .addGap(20)
+                        )
                 )
         );
         SimulationPanelLayout.setVerticalGroup(SimulationPanelLayout.createSequentialGroup()
                 .addGroup(SimulationPanelLayout.createParallelGroup()
                         .addComponent(BingoPanel)
                         .addComponent(SimulationHistoryScrollPane)
-                )
-                .addGap(25)
-                .addGroup(SimulationPanelLayout.createSequentialGroup()
-                        .addComponent(RollButton)
-                        .addGap(20)
-                        .addComponent(CardNumberSelector)
-                        .addGap(20)
+                        .addGroup(SimulationPanelLayout.createSequentialGroup()
+                                .addComponent(RollButton)
+                                .addGap(20)
+                                .addComponent(CardNumberSelector)
+                                .addGap(20)
+                                .addComponent(SimulationChangeGraphButton)
+                                .addGap(20)
+                                .addComponent(SimulationResultsButton)
+                                .addGap(20)
+                                .addComponent(SimulationExportButton)
+                                .addGap(20)
+                        )
                 )
         );
 
@@ -123,6 +163,7 @@ public class SimulationPanel extends JPanel {
 
     public void shuffle(int CardNumber) {
         BingoSquareState[][] State = BingoPanel.getBingoState().getBingoSquares();
+        BingoPanel.getBingoState().setBingoBoardId(CardNumber + "");
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
                 State[i][j].setSquareNumber(SimulationState.getBingoBoardNumbers()[CardNumber][i][j] + "");
@@ -149,18 +190,26 @@ public class SimulationPanel extends JPanel {
                 }
             }
             if (checkBingo(SimulationState.getBingoSquareSelected()[i])) {
-                SimulationState.getGameWinnerCards().add(i);
-                if (SimulationState.getGameWinnerCards().size() == SimulationState.getWinners()) {
-                    RollButton.setEnabled(false);
-                    JOptionPane.showMessageDialog(
-                            this,
-                            "Max Amount of Winners Reached. The Simulation Has Ended",
-                            "Simulation Ended",
-                            JOptionPane.INFORMATION_MESSAGE
-                    );
-                    SimulationResultsWindow = new SimulationResultsWindow(SimulationState);
-                    SimulationResultsWindow.setVisible(true);
-                    return;
+                if (!SimulationState.getIsBoardWinners()[i]) {
+                    SimulationState.getGameWinnerCards().add(i);
+                    if (SimulationState.getGameWinnerCards().size() == SimulationState.getWinners()) {
+                        RollButton.setEnabled(false);
+                        JOptionPane.showMessageDialog(
+                                this,
+                                "Max Amount of Winners Reached. The Simulation Has Ended",
+                                "Simulation Ended",
+                                JOptionPane.INFORMATION_MESSAGE
+                        );
+                        SimulationResultsWindow = new SimulationResultsWindow(SimulationState);
+                        SimulationResultsWindow.setVisible(true);
+                        SimulationResultsButton.setEnabled(true);
+                        SimulationResultsButton.setVisible(true);
+                        SimulationExportButton.setEnabled(true);
+                        SimulationExportButton.setVisible(true);
+                        SwingUtilities.getRootPane(this).setDefaultButton(SimulationExportButton);
+                        return;
+                    }
+                    SimulationState.getIsBoardWinners()[i] = true;
                 }
             }
         }

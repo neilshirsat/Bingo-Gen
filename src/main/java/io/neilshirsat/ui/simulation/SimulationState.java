@@ -24,6 +24,8 @@ public class SimulationState {
 
     private GenerateBingoTiles BingoGenerator;
 
+    private boolean[] IsBoardWinners;
+
     public int getBingoBoardCount() {
         return BingoBoardCount;
     }
@@ -102,6 +104,14 @@ public class SimulationState {
 
     public void setBingoGenerator(GenerateBingoTiles bingoGenerator) {
         BingoGenerator = bingoGenerator;
+    }
+
+    public boolean[] getIsBoardWinners() {
+        return IsBoardWinners;
+    }
+
+    public void setIsBoardWinners(boolean[] isBoardWinners) {
+        IsBoardWinners = isBoardWinners;
     }
 
 }

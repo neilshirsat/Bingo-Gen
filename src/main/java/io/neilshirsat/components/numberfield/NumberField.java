@@ -30,8 +30,8 @@ public class NumberField extends JPanel {
             fl.setAlignment( FlowLayout.LEFT );
         }
 
-        super.setPreferredSize(new Dimension(500, 50));
-        super.setMaximumSize(new Dimension(1000, 50));
+        super.setPreferredSize(new Dimension(250, 50));
+        super.setMaximumSize(new Dimension(250, 50));
     }
 
     public JLabel getLabel() {

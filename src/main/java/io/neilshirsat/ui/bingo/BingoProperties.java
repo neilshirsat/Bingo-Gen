@@ -44,4 +44,10 @@ public enum BingoProperties {
 
     SELECTED_COLOR,
 
+    BOARD_ID,
+
+    ID_COLOR,
+
+    ID_FONT,
+
 }

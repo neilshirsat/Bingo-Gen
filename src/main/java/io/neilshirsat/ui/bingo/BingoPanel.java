@@ -2,6 +2,7 @@ package io.neilshirsat.ui.bingo;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 
 public class BingoPanel extends JPanel {
@@ -15,10 +16,28 @@ public class BingoPanel extends JPanel {
         this.BingoState = BingoState;
 
         super.setBackground(BingoState.getBaseBackgroundColor());
+        TitledBorder tb = BorderFactory.createTitledBorder(
+                new EmptyBorder(20, 20, 20, 20),
+                "Bingo Id: " + BingoState.getBingoBoardId(),
+                TitledBorder.LEFT,
+                TitledBorder.BOTTOM);
+        super.setBorder(tb);
         BingoState.setBingoStateWatcher(e->{
             super.setBackground(BingoState.getBaseBackgroundColor());
+            if (e == BingoProperties.BOARD_ID) {
+                tb.setTitle("Bingo Id: " + BingoState.getBingoBoardId());
+                super.repaint();
+            }
+            if (e == BingoProperties.ID_COLOR) {
+                tb.setTitleColor(BingoState.getBingoIdColor());
+                super.repaint();
+            }
+            if (e == BingoProperties.ID_FONT) {
+                tb.setTitleFont(BingoState.getBingoIdFont());
+                super.repaint();
+            }
         });
-        super.setBorder(new EmptyBorder(20, 20, 20, 20));
+
         BingoGridLayout = new GridLayout( 6, 5 );
         BingoGridLayout.setHgap(0);
         BingoGridLayout.setVgap(0);
@@ -33,6 +52,12 @@ public class BingoPanel extends JPanel {
                 super.add( new BingoSquare(BingoState.getBingoSquares()[j][i]) );
             }
         }
+
+    }
+
+    @Override
+    public Dimension getPreferredSize() {
+        return new Dimension((int)(super.getParent().getSize().height * (5.0/6)), super.getParent().getSize().height);
     }
 
     public GridLayout getBingoGridLayout() {

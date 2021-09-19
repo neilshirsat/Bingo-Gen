@@ -118,6 +118,8 @@ public class MainView extends JPanel {
 
         BingoState = new BingoState();
         BingoState.setBaseBackgroundColor(Color.WHITE);
+        BingoState.setBingoIdColor(Color.BLACK);
+        BingoState.setBingoIdFont(font);
         BingoState.setBingoSquares(SquareState);
         BingoState.setTitleSquares(TitleState);
 
