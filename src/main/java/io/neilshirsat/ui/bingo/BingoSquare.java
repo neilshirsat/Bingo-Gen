@@ -16,8 +16,6 @@ public class BingoSquare extends JPanel {
         super.setOpaque(false);
         super.setBackground(State.getBaseBackgroundColor());
         State.setBingoStateWatcher(e-> {
-            System.out.println("Bingo Square" + " " + (inc++));
-            System.out.println(State.isSelected());
             repaint();
         });
     }

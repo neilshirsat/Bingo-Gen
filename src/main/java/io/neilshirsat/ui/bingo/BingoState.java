@@ -87,5 +87,27 @@ public class BingoState {
         }
     }
 
+    public BingoState cloneBingoState() {
+        BingoState NewState = new BingoState();
+
+        NewState.BingoBoardId = getBingoBoardId();
+        NewState.BingoIdColor = getBingoIdColor();
+        NewState.BaseBackgroundColor = getBaseBackgroundColor();
+        NewState.BingoIdFont = getBingoIdFont();
+
+        NewState.TitleSquares = new BingoSquareState[5];
+        for (int i = 0; i < 5; i++) {
+            NewState.TitleSquares[i] = getTitleSquares()[i].cloneBingoSquareState();
+        }
+
+        NewState.BingoSquares = new BingoSquareState[5][5];
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                NewState.BingoSquares[i][j] = getBingoSquares()[i][j].cloneBingoSquareState();
+            }
+        }
+
+        return NewState;
+    }
 
 }

@@ -114,6 +114,7 @@ public class SimulationExportPanel extends JPanel {
     }
 
     public void generatePNG() {
+        io.neilshirsat.ui.bingo.BingoState BingoState = this.BingoState.cloneBingoState();
         this.BingoPanel = new BingoPanel(BingoState);
         BingoPanel.setSize( 750, 900 );
         for (int j = 0; j < 5; j++) {

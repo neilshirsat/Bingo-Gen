@@ -322,5 +322,32 @@ public class BingoSquareState {
         BaseBackgroundColor = baseBackgroundColor;
     }
 
+    public BingoSquareState cloneBingoSquareState() {
+        BingoSquareState NewState = new BingoSquareState();
+
+        NewState.Analise = isAnalise();
+        NewState.BackgroundColor = getBackgroundColor();
+        NewState.BingoId = getBingoId();
+        NewState.BorderColor = getBorderColor();
+        NewState.BorderThickness = getBorderThickness();
+        NewState.FontSize = getFontSize();
+        NewState.FontStyle = getFontStyle();
+        NewState.FreeSpaceText = getFreeSpaceText();
+        NewState.isFreeSpace = isFreeSpace();
+        NewState.MaxHeight = getMaxHeight();
+        NewState.MaxWidth = getMaxWidth();
+        NewState.PositionX = getPositionX();
+        NewState.PositionY = getPositionY();
+        NewState.isTitle = isTitle();
+        NewState.TitleText = getTitleText();
+        NewState.SelectedColor = getSelectedColor();
+        NewState.Shape = getShape();
+        NewState.SquareNumber = getSquareNumber();
+        NewState.TextAnalise = isTextAnalise();
+        NewState.TextColor = getTextColor();
+        NewState.TextFont = getTextFont();
+
+        return NewState;
+    }
 
 }

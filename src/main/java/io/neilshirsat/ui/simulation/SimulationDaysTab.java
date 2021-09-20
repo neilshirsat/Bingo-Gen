@@ -51,7 +51,7 @@ public class SimulationDaysTab extends JPanel {
         while (Count < State.getRolledBalls().size()) {
 
             //Check the Group
-            if (Group < NumberLeft) {
+            if (Group <= NumberLeft) {
                 if (Count % (NumberInGroupE + 1) == 0 && Count != 0) {
                     if (isAM) {
                         isAM = false;
