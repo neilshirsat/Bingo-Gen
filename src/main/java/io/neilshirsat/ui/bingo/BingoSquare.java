@@ -7,13 +7,19 @@ import java.awt.*;
 
 public class BingoSquare extends JPanel {
 
+    static int inc = 0;
+
     private BingoSquareState State;
 
     public BingoSquare( BingoSquareState State ){
         this.State = State;
         super.setOpaque(false);
         super.setBackground(State.getBaseBackgroundColor());
-        State.setBingoStateWatcher(e-> repaint());
+        State.setBingoStateWatcher(e-> {
+            System.out.println("Bingo Square" + " " + (inc++));
+            System.out.println(State.isSelected());
+            repaint();
+        });
     }
 
     @Override

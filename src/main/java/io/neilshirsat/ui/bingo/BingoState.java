@@ -1,10 +1,11 @@
 package io.neilshirsat.ui.bingo;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class BingoState {
 
-    private BingoStateWatcher BingoStateWatcher;
+    private ArrayList<BingoStateWatcher> BingoStateWatcher = new ArrayList<>();
 
     private BingoSquareState[] TitleSquares;
 
@@ -18,12 +19,12 @@ public class BingoState {
 
     private Font BingoIdFont;
 
-    public io.neilshirsat.ui.bingo.BingoStateWatcher getBingoStateWatcher() {
+    public ArrayList<BingoStateWatcher> getBingoStateWatcher() {
         return BingoStateWatcher;
     }
 
-    public void setBingoStateWatcher(io.neilshirsat.ui.bingo.BingoStateWatcher bingoStateWatcher) {
-        BingoStateWatcher = bingoStateWatcher;
+    public void addBingoStateWatcher(BingoStateWatcher bingoStateWatcher) {
+        BingoStateWatcher.add(bingoStateWatcher);
     }
 
     public BingoSquareState[] getTitleSquares() {
@@ -48,8 +49,8 @@ public class BingoState {
 
     public void setBaseBackgroundColor(Color baseBackgroundColor) {
         BaseBackgroundColor = baseBackgroundColor;
-        if (getBingoStateWatcher() != null) {
-            getBingoStateWatcher().stateChange(BingoProperties.BACKGROUND_COLOR);
+        for (int i = 0; i < getBingoStateWatcher().size(); i++){
+            getBingoStateWatcher().get(i).stateChange(BingoProperties.BACKGROUND_COLOR);
         }
     }
 
@@ -59,8 +60,8 @@ public class BingoState {
 
     public void setBingoBoardId(String bingoBoardId) {
         BingoBoardId = bingoBoardId;
-        if (getBingoStateWatcher() != null) {
-            getBingoStateWatcher().stateChange(BingoProperties.BOARD_ID);
+        for (int i = 0; i < getBingoStateWatcher().size(); i++){
+            getBingoStateWatcher().get(i).stateChange(BingoProperties.BOARD_ID);
         }
     }
 
@@ -70,8 +71,8 @@ public class BingoState {
 
     public void setBingoIdColor(Color bingoIdColor) {
         BingoIdColor = bingoIdColor;
-        if (getBingoStateWatcher() != null) {
-            getBingoStateWatcher().stateChange(BingoProperties.ID_COLOR);
+        for (int i = 0; i < getBingoStateWatcher().size(); i++){
+            getBingoStateWatcher().get(i).stateChange(BingoProperties.ID_COLOR);
         }
     }
 
@@ -81,8 +82,8 @@ public class BingoState {
 
     public void setBingoIdFont(Font bingoIdFont) {
         BingoIdFont = bingoIdFont;
-        if (getBingoStateWatcher() != null) {
-            getBingoStateWatcher().stateChange(BingoProperties.ID_FONT);
+        for (int i = 0; i < getBingoStateWatcher().size(); i++){
+            getBingoStateWatcher().get(i).stateChange(BingoProperties.ID_FONT);
         }
     }
 

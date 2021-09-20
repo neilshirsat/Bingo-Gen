@@ -39,7 +39,9 @@ public class FileChooser extends io.neilshirsat.components.textfield.TextField {
                         if(option == JFileChooser.APPROVE_OPTION){
                             File file = FileChooser.this.FileSelect.getSelectedFile();
                             FileChooser.this.getTextField().setText(file.getAbsolutePath());
-                            ActionListener.FileChosen(new FileChosenEvent(file));
+                            if (getActionListener() != null){
+                                ActionListener.FileChosen(new FileChosenEvent(file));
+                            }
                         }
                     }
 

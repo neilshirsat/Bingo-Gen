@@ -3,6 +3,7 @@ package io.neilshirsat.ui.bingo;
 import io.neilshirsat.util.ShapeType;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class BingoSquareState {
 
@@ -50,7 +51,7 @@ public class BingoSquareState {
 
     private BingoActionListener BingoActionListener;
 
-    private BingoStateWatcher BingoStateWatcher;
+    private ArrayList<BingoStateWatcher> BingoStateWatcher = new ArrayList<>();
 
     private Color SelectedColor;
 
@@ -70,8 +71,8 @@ public class BingoSquareState {
 
     public void setPositionX(int positionX) {
         PositionX = positionX;
-        if (getBingoStateWatcher() != null) {
-            getBingoStateWatcher().stateChange(BingoProperties.POSITION_X);
+        for (int i = 0; i < getBingoStateWatcher().size(); i++){
+            getBingoStateWatcher().get(i).stateChange(BingoProperties.POSITION_X);
         }
     }
 
@@ -81,8 +82,8 @@ public class BingoSquareState {
 
     public void setPositionY(int positionY) {
         PositionY = positionY;
-        if (getBingoStateWatcher() != null) {
-            getBingoStateWatcher().stateChange(BingoProperties.POSITION_Y);
+        for (int i = 0; i < getBingoStateWatcher().size(); i++){
+            getBingoStateWatcher().get(i).stateChange(BingoProperties.POSITION_Y);
         }
     }
 
@@ -92,8 +93,8 @@ public class BingoSquareState {
 
     public void setMaxHeight(int maxHeight) {
         MaxHeight = maxHeight;
-        if (getBingoStateWatcher() != null) {
-            getBingoStateWatcher().stateChange(BingoProperties.MAX_HEIGHT);
+        for (int i = 0; i < getBingoStateWatcher().size(); i++){
+            getBingoStateWatcher().get(i).stateChange(BingoProperties.MAX_HEIGHT);
         }
     }
 
@@ -103,8 +104,8 @@ public class BingoSquareState {
 
     public void setMaxWidth(int maxWidth) {
         MaxWidth = maxWidth;
-        if (getBingoStateWatcher() != null) {
-            getBingoStateWatcher().stateChange(BingoProperties.MAX_WIDTH);
+        for (int i = 0; i < getBingoStateWatcher().size(); i++){
+            getBingoStateWatcher().get(i).stateChange(BingoProperties.MAX_WIDTH);
         }
     }
 
@@ -114,8 +115,8 @@ public class BingoSquareState {
 
     public void setShape(ShapeType shape) {
         Shape = shape;
-        if (getBingoStateWatcher() != null) {
-            getBingoStateWatcher().stateChange(BingoProperties.SHAPE);
+        for (int i = 0; i < getBingoStateWatcher().size(); i++){
+            getBingoStateWatcher().get(i).stateChange(BingoProperties.SHAPE);
         }
     }
 
@@ -125,8 +126,8 @@ public class BingoSquareState {
 
     public void setBackgroundColor(Color backgroundColor) {
         BackgroundColor = backgroundColor;
-        if (getBingoStateWatcher() != null) {
-            getBingoStateWatcher().stateChange(BingoProperties.BACKGROUND_COLOR);
+        for (int i = 0; i < getBingoStateWatcher().size(); i++){
+            getBingoStateWatcher().get(i).stateChange(BingoProperties.BACKGROUND_COLOR);
         }
     }
 
@@ -136,8 +137,8 @@ public class BingoSquareState {
 
     public void setBorderThickness(int borderThickness) {
         BorderThickness = borderThickness;
-        if (getBingoStateWatcher() != null) {
-            getBingoStateWatcher().stateChange(BingoProperties.BORDER_THICKNESS);
+        for (int i = 0; i < getBingoStateWatcher().size(); i++){
+            getBingoStateWatcher().get(i).stateChange(BingoProperties.BORDER_THICKNESS);
         }
     }
 
@@ -147,8 +148,8 @@ public class BingoSquareState {
 
     public void setBorderColor(Color borderColor) {
         BorderColor = borderColor;
-        if (getBingoStateWatcher() != null) {
-            getBingoStateWatcher().stateChange(BingoProperties.BORDER_COLOR);
+        for (int i = 0; i < getBingoStateWatcher().size(); i++){
+            getBingoStateWatcher().get(i).stateChange(BingoProperties.BORDER_COLOR);
         }
     }
 
@@ -158,8 +159,8 @@ public class BingoSquareState {
 
     public void setTextColor(Color textColor) {
         TextColor = textColor;
-        if (getBingoStateWatcher() != null) {
-            getBingoStateWatcher().stateChange(BingoProperties.TEXT_COLOR);
+        for (int i = 0; i < getBingoStateWatcher().size(); i++){
+            getBingoStateWatcher().get(i).stateChange(BingoProperties.TEXT_COLOR);
         }
     }
 
@@ -169,8 +170,8 @@ public class BingoSquareState {
 
     public void setTextFont(Font textFont) {
         TextFont = textFont;
-        if (getBingoStateWatcher() != null) {
-            getBingoStateWatcher().stateChange(BingoProperties.TEXT_FONT);
+        for (int i = 0; i < getBingoStateWatcher().size(); i++){
+            getBingoStateWatcher().get(i).stateChange(BingoProperties.TEXT_FONT);
         }
     }
 
@@ -180,8 +181,8 @@ public class BingoSquareState {
 
     public void setFontStyle(int fontStyle) {
         FontStyle = fontStyle;
-        if (getBingoStateWatcher() != null) {
-            getBingoStateWatcher().stateChange(BingoProperties.TEXT_FONT_STYLE);
+        for (int i = 0; i < getBingoStateWatcher().size(); i++){
+            getBingoStateWatcher().get(i).stateChange(BingoProperties.TEXT_FONT_STYLE);
         }
     }
 
@@ -191,8 +192,8 @@ public class BingoSquareState {
 
     public void setFontSize(float fontSize) {
         FontSize = fontSize;
-        if (getBingoStateWatcher() != null) {
-            getBingoStateWatcher().stateChange(BingoProperties.TEXT_FONT_SIZE);
+        for (int i = 0; i < getBingoStateWatcher().size(); i++){
+            getBingoStateWatcher().get(i).stateChange(BingoProperties.TEXT_FONT_SIZE);
         }
     }
 
@@ -204,12 +205,12 @@ public class BingoSquareState {
         BingoActionListener = bingoActionListener;
     }
 
-    public io.neilshirsat.ui.bingo.BingoStateWatcher getBingoStateWatcher() {
+    public ArrayList<BingoStateWatcher> getBingoStateWatcher() {
         return BingoStateWatcher;
     }
 
     public void setBingoStateWatcher(io.neilshirsat.ui.bingo.BingoStateWatcher bingoStateWatcher) {
-        BingoStateWatcher = bingoStateWatcher;
+        BingoStateWatcher.add(bingoStateWatcher);
     }
 
     public boolean isAnalise() {
@@ -218,8 +219,8 @@ public class BingoSquareState {
 
     public void setAnalise(boolean Analise) {
         this.Analise = Analise;
-        if (getBingoStateWatcher() != null) {
-            getBingoStateWatcher().stateChange(BingoProperties.ANALISE);
+        for (int i = 0; i < getBingoStateWatcher().size(); i++){
+            getBingoStateWatcher().get(i).stateChange(BingoProperties.ANALISE);
         }
     }
 
@@ -229,8 +230,8 @@ public class BingoSquareState {
 
     public void setTextAnalise(boolean textAnalise) {
         TextAnalise = textAnalise;
-        if (getBingoStateWatcher() != null) {
-            getBingoStateWatcher().stateChange(BingoProperties.TEXT_ANALISE);
+        for (int i = 0; i < getBingoStateWatcher().size(); i++){
+            getBingoStateWatcher().get(i).stateChange(BingoProperties.TEXT_ANALISE);
         }
     }
 
@@ -240,8 +241,8 @@ public class BingoSquareState {
 
     public void setFreeSpace(boolean freeSpace) {
         isFreeSpace = freeSpace;
-        if (getBingoStateWatcher() != null) {
-            getBingoStateWatcher().stateChange(BingoProperties.IS_FREE_SPACE);
+        for (int i = 0; i < getBingoStateWatcher().size(); i++){
+            getBingoStateWatcher().get(i).stateChange(BingoProperties.IS_FREE_SPACE);
         }
     }
 
@@ -251,8 +252,8 @@ public class BingoSquareState {
 
     public void setFreeSpaceText(String freeSpaceText) {
         FreeSpaceText = freeSpaceText;
-        if (getBingoStateWatcher() != null) {
-            getBingoStateWatcher().stateChange(BingoProperties.FREE_SPACE_TEXT);
+        for (int i = 0; i < getBingoStateWatcher().size(); i++){
+            getBingoStateWatcher().get(i).stateChange(BingoProperties.FREE_SPACE_TEXT);
         }
     }
 
@@ -262,8 +263,8 @@ public class BingoSquareState {
 
     public void setTitle(boolean title) {
         isTitle = title;
-        if (getBingoStateWatcher() != null) {
-            getBingoStateWatcher().stateChange(BingoProperties.IS_TITLE);
+        for (int i = 0; i < getBingoStateWatcher().size(); i++){
+            getBingoStateWatcher().get(i).stateChange(BingoProperties.IS_TITLE);
         }
     }
 
@@ -273,8 +274,8 @@ public class BingoSquareState {
 
     public void setTitleText(String titleText) {
         TitleText = titleText;
-        if (getBingoStateWatcher() != null) {
-            getBingoStateWatcher().stateChange(BingoProperties.TITLE_TEXT);
+        for (int i = 0; i < getBingoStateWatcher().size(); i++){
+            getBingoStateWatcher().get(i).stateChange(BingoProperties.TITLE_TEXT);
         }
     }
 
@@ -284,8 +285,8 @@ public class BingoSquareState {
 
     public void setSquareNumber(String squareNumber) {
         SquareNumber = squareNumber;
-        if (getBingoStateWatcher() != null) {
-            getBingoStateWatcher().stateChange(BingoProperties.SQUARE_NUMBER);
+        for (int i = 0; i < getBingoStateWatcher().size(); i++){
+            getBingoStateWatcher().get(i).stateChange(BingoProperties.SQUARE_NUMBER);
         }
     }
 
@@ -295,8 +296,8 @@ public class BingoSquareState {
 
     public void setSelectedColor(Color selectedColor) {
         SelectedColor = selectedColor;
-        if (getBingoStateWatcher() != null) {
-            getBingoStateWatcher().stateChange(BingoProperties.SELECTED_COLOR);
+        for (int i = 0; i < getBingoStateWatcher().size(); i++){
+            getBingoStateWatcher().get(i).stateChange(BingoProperties.SELECTED_COLOR);
         }
     }
 
@@ -305,8 +306,9 @@ public class BingoSquareState {
     }
 
     public void setSelected(boolean selected) {
-        Selected = selected;if (getBingoStateWatcher() != null) {
-            getBingoStateWatcher().stateChange(BingoProperties.IS_SELECTED);
+        Selected = selected;
+        for (int i = 0; i < getBingoStateWatcher().size(); i++){
+            getBingoStateWatcher().get(i).stateChange(BingoProperties.IS_SELECTED);
         }
     }
 
