@@ -86,6 +86,24 @@ public class SimulationPanel extends JPanel {
                     SimulationState.getGameWinnerCards().toString()
             });
             SimulationState.setBingoTurn(SimulationState.getBingoTurn()+1);
+            //System.out.println(SimulationState.getGameWinnerCards().size());
+            //System.out.println(SimulationState.getWinners());
+            if (SimulationState.getGameWinnerCards().size() >= SimulationState.getWinners()) {
+                RollButton.setEnabled(false);
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Max Amount of Winners Reached. The Simulation Has Ended",
+                        "Simulation Ended",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+                SimulationResultsWindow = new SimulationResultsWindow(SimulationState);
+                SimulationResultsWindow.setVisible(true);
+                SimulationResultsButton.setEnabled(true);
+                SimulationResultsButton.setVisible(true);
+                SimulationExportButton.setEnabled(true);
+                SimulationExportButton.setVisible(true);
+                SwingUtilities.getRootPane(this).setDefaultButton(SimulationExportButton);
+            }
             if (SimulationState.getBingoTurn() == 75) {
                 RollButton.setEnabled(false);
             }
@@ -192,24 +210,11 @@ public class SimulationPanel extends JPanel {
             if (checkBingo(SimulationState.getBingoSquareSelected()[i])) {
                 if (!SimulationState.getIsBoardWinners()[i]) {
                     SimulationState.getGameWinnerCards().add(i);
-                    if (SimulationState.getGameWinnerCards().size() == SimulationState.getWinners()) {
-                        RollButton.setEnabled(false);
-                        JOptionPane.showMessageDialog(
-                                this,
-                                "Max Amount of Winners Reached. The Simulation Has Ended",
-                                "Simulation Ended",
-                                JOptionPane.INFORMATION_MESSAGE
-                        );
-                        SimulationResultsWindow = new SimulationResultsWindow(SimulationState);
-                        SimulationResultsWindow.setVisible(true);
-                        SimulationResultsButton.setEnabled(true);
-                        SimulationResultsButton.setVisible(true);
-                        SimulationExportButton.setEnabled(true);
-                        SimulationExportButton.setVisible(true);
-                        SwingUtilities.getRootPane(this).setDefaultButton(SimulationExportButton);
+                    SimulationState.getGameWinnerCardsTurn().add(SimulationState.getBingoTurn());
+                    SimulationState.getIsBoardWinners()[i] = true;
+                    if (SimulationState.getGameWinnerCards().size() >= SimulationState.getWinners()) {
                         return;
                     }
-                    SimulationState.getIsBoardWinners()[i] = true;
                 }
             }
         }

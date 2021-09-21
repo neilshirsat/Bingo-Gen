@@ -2,6 +2,7 @@ package io.neilshirsat.ui.simulation;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.util.Arrays;
 
 public class SimulationDaysTab extends JPanel {
 
@@ -25,6 +26,11 @@ public class SimulationDaysTab extends JPanel {
             "Sunday"
     };
 
+    private String[] PERIOD_TABLE = new String[]{
+            "AM",
+            "PM",
+    };
+
     public SimulationDaysTab(SimulationState State) {
         super();
 
@@ -41,50 +47,60 @@ public class SimulationDaysTab extends JPanel {
         SimulationDaysTableModel.addColumn("Round");
         SimulationDaysTableModel.addColumn("Rolled Ball");
 
-        int NumberInGroupE = State.getRolledBalls().size() / (State.getDayCount() * 2);
-        int NumberLeft = State.getRolledBalls().size() % (State.getDayCount() * 2);
-        int Day = 0;
-        int Group = 0;
-        boolean isAM = true;
-        int Count = 0;
-
-        while (Count < State.getRolledBalls().size()) {
-
-            //Check the Group
-            if (Group <= NumberLeft) {
-                if (Count % (NumberInGroupE + 1) == 0 && Count != 0) {
-                    if (isAM) {
-                        isAM = false;
-                    }
-                    else {
-                        Day++;
-                        isAM = true;
-                    }
-                    Group++;
+        int[][] table = new int[2][State.getDayCount()];
+        int remainder = State.getRolledBalls().size() % (State.getDayCount() * 2);
+        for (int i = 0; i < State.getDayCount(); i++) {
+            for (int  j = 0; j < 2; j++) {
+                table[j][i] = State.getRolledBalls().size() / (State.getDayCount() * 2);
+                if (remainder > 0) {
+                    table[j][i] += 1;
                 }
+                remainder--;
             }
-            else {
-                if (Count % (NumberInGroupE) == 0 && Count != 0) {
-                    if (isAM) {
-                        isAM = false;
-                    }
-                    else {
-                        Day++;
-                        isAM = true;
-                    }
-                    Group++;
-                }
-            }
-
-            SimulationDaysTableModel.addRow(new String[]{
-                    DAYS_TABLE[Day],
-                    isAM ? "AM" : "PM",
-                    State.getRolledBalls().get(Count) + ""
-            });
-
-            Count++;
-
         }
+
+
+        int Count = 0;
+        for (int i = 0; i < State.getDayCount(); i++) {
+            for (int  j = 0; j < 2; j++) {
+                //System.out.println(table[j][i]);
+                for (int k = 0; k < table[j][i]; k++) {
+                    SimulationDaysTableModel.addRow(new String[]{
+                            DAYS_TABLE[i],
+                            PERIOD_TABLE[j],
+                            State.getRolledBalls().get(Count) + ""
+                    });
+                    Count++;
+                }
+                remainder--;
+            }
+        }
+
+        /*
+        //System.out.println(State.getRolledBalls().size());
+        int ballsLeft = State.getRolledBalls().size() % (State.getDayCount() * 2);
+        int Count = 0;
+        for (int i = 0; i < State.getDayCount(); i++) {
+            for (int  j = 0; j < 2; j++) {
+                //System.out.println("----------------------------------------------");
+                //System.out.println(DAYS_TABLE[i]);
+                //System.out.println(PERIOD_TABLE[j]);
+                //System.out.println(Math.max(ballsLeft, 0) + (State.getRolledBalls().size() % (State.getDayCount() * 2)) + (State.getRolledBalls().size() / (State.getDayCount() * 2)));
+                //System.out.println(Math.max(ballsLeft, 0));
+                //System.out.println((State.getRolledBalls().size() % (State.getDayCount() * 2)));
+                //System.out.println((State.getRolledBalls().size() / (State.getDayCount() * 2)));
+                for (int k = 0; k < Math.max(ballsLeft, 0) + (State.getRolledBalls().size() / (State.getDayCount() * 2)); k++) {
+                    SimulationDaysTableModel.addRow(new String[]{
+                            DAYS_TABLE[i],
+                            PERIOD_TABLE[j],
+                            State.getRolledBalls().get(Count) + ""
+                    });
+                    Count++;
+                }
+                ballsLeft--;
+            }
+        }
+         */
 
         SimulationDaysLayout.setHorizontalGroup(SimulationDaysLayout.createParallelGroup()
                 .addComponent(SimulationDaysScrollPane)

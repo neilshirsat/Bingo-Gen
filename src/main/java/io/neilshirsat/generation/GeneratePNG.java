@@ -38,7 +38,6 @@ public class GeneratePNG {
 
         try {
             File file = new File(path + "\\" + name + ".png");
-            System.out.println(file.getAbsoluteFile());
             ImageIO.write( image, "png", file );
         } catch (IOException e) {
             System.out.println("Failed");

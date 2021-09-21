@@ -1,5 +1,13 @@
 package io.neilshirsat.ui.simulation;
 
+import com.itextpdf.io.image.ImageDataFactory;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfPage;
+import com.itextpdf.kernel.pdf.PdfReader;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.kernel.pdf.xobject.PdfFormXObject;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Image;
 import io.neilshirsat.components.filechooser.FileChooser;
 import io.neilshirsat.components.select.Select;
 import io.neilshirsat.components.textfield.TextField;
@@ -9,12 +17,17 @@ import io.neilshirsat.ui.bingo.BingoPanel;
 import io.neilshirsat.ui.bingo.BingoSquareState;
 import io.neilshirsat.ui.bingo.BingoState;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.table.DefaultTableModel;
-import java.io.File;
-import java.io.IOException;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class SimulationExportPanel extends JPanel {
 
@@ -26,7 +39,8 @@ public class SimulationExportPanel extends JPanel {
 
     private String[] FILES_FORMATS = new String[]{
             "png",
-            "jpg"
+            "jpg",
+            "pdf"
     };
 
     private Select<String> FileFormat;
@@ -76,6 +90,7 @@ public class SimulationExportPanel extends JPanel {
             switch ((String)FileFormat.getSelectList().getSelectedItem()) {
                 case "jpg" -> generateJPG();
                 case "png" -> generatePNG();
+                case "pdf" -> generatePDF();
             }
         });
 
@@ -100,23 +115,10 @@ public class SimulationExportPanel extends JPanel {
     }
 
     public void generateJPG() {
-        this.BingoPanel = new BingoPanel(BingoState);
-        BingoPanel.setSize( 750, 900 );
-        try {
-            GenerateJPG.generateJPG(
-                    BingoPanel,
-                    BingoName.getTextField().getText(),
-                    OutputLocation.getTextField().getText()
-            );
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void generatePNG() {
         io.neilshirsat.ui.bingo.BingoState BingoState = this.BingoState.cloneBingoState();
         this.BingoPanel = new BingoPanel(BingoState);
         BingoPanel.setSize( 750, 900 );
+
         for (int j = 0; j < 5; j++) {
             for (int k = 0; k < 5; k++) {
                 BingoState.getBingoSquares()[j][k].setSelected(false);
@@ -130,7 +132,7 @@ public class SimulationExportPanel extends JPanel {
                 }
             }
             try {
-                GeneratePNG.generatePNG(
+                GenerateJPG.generateJPG(
                         BingoPanel,
                         BingoName.getTextField().getText() + "-" + i,
                         OutputLocation.getTextField().getText()
@@ -139,6 +141,110 @@ public class SimulationExportPanel extends JPanel {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void generatePNG() {
+        io.neilshirsat.ui.bingo.BingoState BingoState = this.BingoState.cloneBingoState();
+        this.BingoPanel = new BingoPanel(BingoState);
+        BingoPanel.setSize( 750, 900 );
+
+        ExecutorService Exc = Executors.newCachedThreadPool();
+
+        for (int j = 0; j < 5; j++) {
+            for (int k = 0; k < 5; k++) {
+                BingoState.getBingoSquares()[j][k].setSelected(false);
+            }
+        }
+        for (int i = 0; i < State.getBingoBoardCount(); i++) {
+            int finalI = i;
+            Exc.submit(()->{
+                BingoPanel.getBingoState().setBingoBoardId(finalI + "");
+                for (int j = 0; j < 5; j++) {
+                    for (int k = 0; k < 5; k++) {
+                        BingoState.getBingoSquares()[j][k].setSquareNumber(State.getBingoBoardNumbers()[finalI][j][k] + "");
+                    }
+                }
+                try {
+                    GeneratePNG.generatePNG(
+                            BingoPanel,
+                            BingoName.getTextField().getText() + "-" + finalI,
+                            OutputLocation.getTextField().getText()
+                    );
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+        }
+    }
+
+    public void generatePDF() {
+        io.neilshirsat.ui.bingo.BingoState BingoState = this.BingoState.cloneBingoState();
+        this.BingoPanel = new BingoPanel(BingoState);
+        BingoPanel.setSize( 750, 900 );
+
+        ExecutorService Exc = Executors.newCachedThreadPool();
+        File file = new File(OutputLocation.getTextField().getText() + "\\" + BingoName.getTextField().getText() + ".pdf");
+        PdfWriter Writer = null;
+        try {
+             Writer = new PdfWriter(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        assert Writer != null;
+        PdfDocument PDFDocument = new PdfDocument(Writer);
+        PDFDocument.addNewPage();
+        Document document = new Document(PDFDocument);
+
+        for (int j = 0; j < 5; j++) {
+            for (int k = 0; k < 5; k++) {
+                BingoState.getBingoSquares()[j][k].setSelected(false);
+            }
+        }
+        for (int i = 0; i < State.getBingoBoardCount(); i++) {
+            int finalI = i;
+            Exc.submit(()->{
+                BingoPanel.getBingoState().setBingoBoardId(finalI + "");
+                for (int j = 0; j < 5; j++) {
+                    for (int k = 0; k < 5; k++) {
+                        BingoState.getBingoSquares()[j][k].setSquareNumber(State.getBingoBoardNumbers()[finalI][j][k] + "");
+                    }
+                }
+                BingoPanel.doLayout();
+                BingoPanel.validate();
+                BufferedImage image = new BufferedImage(
+                        BingoPanel.getWidth(),
+                        BingoPanel.getHeight(),
+                        BufferedImage.TYPE_INT_ARGB
+                );
+                Graphics2D g2d = image.createGraphics();
+                g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON );
+                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                BingoPanel.printAll( g2d );
+                g2d.dispose();
+
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                System.out.println(baos);
+                try {
+                    ImageIO.write(image, "png", baos);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Image BingoImage = new Image(ImageDataFactory.create(baos.toByteArray()));
+                System.out.println(BingoImage);
+                document.add(BingoImage);
+                //PDFDocument.addNewPage();
+
+            });
+        }
+
+        document.close();
+        System.out.println(document);
+        try {
+            Writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }

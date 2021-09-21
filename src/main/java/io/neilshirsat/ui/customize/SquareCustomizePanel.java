@@ -29,7 +29,8 @@ public class SquareCustomizePanel extends JPanel {
 
     private String[] SHAPE_OPTIONS = new String[]{
             "Circle",
-            "Rectangle"
+            "Rectangle",
+            "None"
     };
 
     private Select<String> Shape;
@@ -160,6 +161,9 @@ public class SquareCustomizePanel extends JPanel {
             }
             else if (Shape.getSelectList().getSelectedItem().equals("Rectangle")) {
                 State.setShape(ShapeType.RECTANGLE);
+            }
+            else if (Shape.getSelectList().getSelectedItem().equals("None")) {
+                State.setShape(ShapeType.NONE);
             }
         });
         BorderColor.setActionListener(e-> State.setBorderColor(e.getSelectedColor()));

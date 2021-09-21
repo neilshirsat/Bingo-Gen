@@ -16,6 +16,8 @@ public class SimulationState {
 
     private ArrayList<Integer> RolledBalls;
 
+    private ArrayList<Integer> GameWinnerCardsTurn;
+
     private ArrayList<Integer> GameWinnerCards;
 
     private int[][][] BingoBoardNumbers;
@@ -72,6 +74,14 @@ public class SimulationState {
 
     public void setBingoTurn(int bingoTurn) {
         BingoTurn = bingoTurn;
+    }
+
+    public ArrayList<Integer> getGameWinnerCardsTurn() {
+        return GameWinnerCardsTurn;
+    }
+
+    public void setGameWinnerCardsTurn(ArrayList<Integer> gameWinnerCardsTurn) {
+        GameWinnerCardsTurn = gameWinnerCardsTurn;
     }
 
     public ArrayList<Integer> getGameWinnerCards() {

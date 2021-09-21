@@ -38,7 +38,6 @@ public class GenerateJPG {
         //System.out.println(g2d);
 
         File file = new File(path + "\\" + name + ".jpg");
-        System.out.println(file.getAbsoluteFile());
 
         JPEGImageWriteParam jpegParams = new JPEGImageWriteParam(null);
         jpegParams.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);

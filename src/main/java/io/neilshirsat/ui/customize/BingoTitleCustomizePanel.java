@@ -27,7 +27,8 @@ public class BingoTitleCustomizePanel extends JPanel {
 
     private String[] SHAPE_OPTIONS = new String[]{
             "Circle",
-            "Rectangle"
+            "Rectangle",
+            "None"
     };
 
     private Select<String> Shape;
@@ -158,6 +159,11 @@ public class BingoTitleCustomizePanel extends JPanel {
             else if (Shape.getSelectList().getSelectedItem().equals("Rectangle")) {
                 for (BingoSquareState i : State.getTitleSquares()) {
                     i.setShape(ShapeType.RECTANGLE);
+                }
+            }
+            else if (Shape.getSelectList().getSelectedItem().equals("None")) {
+                for (BingoSquareState i : State.getTitleSquares()) {
+                    i.setShape(ShapeType.NONE);
                 }
             }
         });

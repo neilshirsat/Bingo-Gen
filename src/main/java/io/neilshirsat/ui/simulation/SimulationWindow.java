@@ -27,6 +27,7 @@ public class SimulationWindow extends JFrame {
         State.setBingoTurn(1);
         State.setBingoGenerator(new GenerateBingoTiles(State.getSeed()));
         State.setRolledBalls(new ArrayList<>(75));
+        State.setGameWinnerCardsTurn(new ArrayList<>(State.getWinners()));
         State.setGameWinnerCards(new ArrayList<>(State.getWinners()));
         State.setBingoBoardNumbers(new int[State.getBingoBoardCount()][5][5]);
         State.setBingoSquareSelected(new boolean[State.getBingoBoardCount()][5][5]);

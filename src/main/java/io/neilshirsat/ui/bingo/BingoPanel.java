@@ -23,7 +23,6 @@ public class BingoPanel extends JPanel {
                 TitledBorder.BOTTOM);
         super.setBorder(tb);
         BingoState.addBingoStateWatcher(e->{
-            System.out.println("Bingo Action Listener");
             super.setBackground(BingoState.getBaseBackgroundColor());
             if (e == BingoProperties.BOARD_ID) {
                 tb.setTitle("Bingo Id: " + BingoState.getBingoBoardId());

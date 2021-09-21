@@ -72,6 +72,7 @@ public class CustomizeTab extends JPanel {
                             State.getBingoSquares()[i][j].setBorderThickness(2);
                             State.getBingoSquares()[i][j].setShape(ShapeType.RECTANGLE);
                             State.getBingoSquares()[i][j].setSelectedColor(Color.BLUE);
+                            State.getBingoSquares()[i][j].setSelectedColor(Color.RED);
                         }
                     }
                 }
@@ -122,7 +123,7 @@ public class CustomizeTab extends JPanel {
                         State.getTitleSquares()[i].setBorderColor(Color.RED);
                         State.getTitleSquares()[i].setBackgroundColor(Color.BLACK);
                         State.getTitleSquares()[i].setBorderThickness(2);
-                        State.getTitleSquares()[i].setShape(ShapeType.CIRCLE);
+                        State.getTitleSquares()[i].setShape(ShapeType.NONE);
                     }
                     for (int i = 0; i < 5; i++) {
                         for (int j = 0; j < 5; j++) {
