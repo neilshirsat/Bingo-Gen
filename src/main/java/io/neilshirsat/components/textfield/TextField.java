@@ -26,9 +26,8 @@ public class TextField extends JPanel {
         super.add( Label );
         super.add( TextField );
 
-        if ( super.getLayout() instanceof FlowLayout fl ) {
-            fl.setAlignment( FlowLayout.LEFT );
-        }
+        FlowLayout fl = (FlowLayout)super.getLayout();
+        fl.setAlignment( FlowLayout.LEFT );
 
         super.setPreferredSize(new Dimension(600, 50));
         super.setMaximumSize(new Dimension(1000, 50));

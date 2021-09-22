@@ -94,7 +94,8 @@ public class SimulationWindow extends JFrame {
 
         Dimension WindowDimension = Toolkit.getDefaultToolkit().getScreenSize();
         super.setSize(  new Dimension( (int)WindowDimension.getWidth() * 15/16 , (int)WindowDimension.getHeight() * 15/16));
-        super.setLocation(WindowDimension.width/2-this.getSize().width/2,
+        super.setLocation(
+                WindowDimension.width/2-this.getSize().width/2,
                 WindowDimension.height/2-this.getSize().height/2
         );
 

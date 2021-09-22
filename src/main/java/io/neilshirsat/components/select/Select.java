@@ -38,9 +38,8 @@ public class Select<T> extends JPanel {
         super.add( SelectLabel );
         super.add( SelectList );
 
-        if ( super.getLayout() instanceof FlowLayout fl ) {
-            fl.setAlignment( FlowLayout.LEFT );
-        }
+        FlowLayout fl = (FlowLayout)super.getLayout();
+        fl.setAlignment( FlowLayout.LEFT );
 
         super.setPreferredSize(new Dimension(250, 50));
         super.setMaximumSize(new Dimension(1000, 50));

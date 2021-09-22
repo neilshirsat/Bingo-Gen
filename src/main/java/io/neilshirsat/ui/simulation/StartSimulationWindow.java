@@ -47,7 +47,7 @@ public class StartSimulationWindow extends JDialog {
 
         AmountOfDays = new NumberField();
         AmountOfDays.setLabelText("Amount of Days: ");
-        AmountOfDays.getNumberField().setModel(new SpinnerNumberModel(1, 1, 75, 1));
+        AmountOfDays.getNumberField().setModel(new SpinnerNumberModel(1, 1, 7, 1));
 
         Seed = new NumberField();
         Seed.setLabelText("Seed: ");
@@ -59,15 +59,30 @@ public class StartSimulationWindow extends JDialog {
 
         CreateSimulationButton = new JButton("Create Simulation");
         CreateSimulationButton.addActionListener(e->{
-            getSimulationCloseHandler().handle(
-                    (int) BingoBoards.getNumberField().getValue(),
-                    (int) AmountOfDays.getNumberField().getValue(),
-                    (int) Seed.getNumberField().getValue(),
-                    (int) Winners.getNumberField().getValue()
-            );
-            StartSimulationWindow.this.setVisible(false);
+            if ((int) Winners.getNumberField().getValue() > (int) BingoBoards.getNumberField().getValue()) {
+                JOptionPane.showMessageDialog(
+                        null,
+                        "There cannot be more winners than Bingo Cards",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE
+                );
+            }
+            else {
+                getSimulationCloseHandler().handle(
+                        (int) BingoBoards.getNumberField().getValue(),
+                        (int) AmountOfDays.getNumberField().getValue(),
+                        (int) Seed.getNumberField().getValue(),
+                        (int) Winners.getNumberField().getValue()
+                );
+                StartSimulationWindow.this.setVisible(false);
+            }
         });
-        CloseButton = new JButton("Close Button");
+        CloseButton = new JButton("Close");
+        CloseButton.addActionListener(e->{
+            if (getSimulationCancelHandler() != null) {
+                getSimulationCancelHandler().handle();
+            }
+        });
 
         SimulationPanel.setBorder(new EmptyBorder(20,20,20,20));
 

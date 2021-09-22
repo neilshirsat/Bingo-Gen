@@ -75,6 +75,7 @@ public class SettingsPanel extends JPanel {
         WindowThemes.add("OS Theme - NOT RECOMMENDED FOR USE");
         SetWindowTheme = new Select<>(setStringArray(WindowThemes));
         SetWindowTheme.setLabel("Bingo Theme: ");
+        SetWindowTheme.getSelectList().setSelectedItem("One Dark Theme");
         SetWindowTheme.getSelectList().addActionListener(e->{
             String value = (String) SetWindowTheme.getSelectList().getSelectedItem();
 

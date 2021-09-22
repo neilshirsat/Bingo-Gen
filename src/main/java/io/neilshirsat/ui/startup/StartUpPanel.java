@@ -14,8 +14,6 @@ public class StartUpPanel extends JPanel {
 
     private Color TextColor;
 
-    private Image Background;
-
     private io.neilshirsat.util.WindowDragListener WindowDragListener;
 
     private final String Title = "Bingo Gen_";
@@ -28,7 +26,6 @@ public class StartUpPanel extends JPanel {
             TextFont = Font.createFont(Font.TRUETYPE_FONT,
                     Objects.requireNonNull(Application.class.getResourceAsStream("NotoSans-Regular.ttf")));
             TextFont = TextFont.deriveFont(Font.PLAIN, 75f);
-            Background = ImageIO.read(Objects.requireNonNull(Application.class.getResourceAsStream("Vibration.jpg")));
         } catch (Exception e) {
             System.out.println("Font Not Initialized");
         }

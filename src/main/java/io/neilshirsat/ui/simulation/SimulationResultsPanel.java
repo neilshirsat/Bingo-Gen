@@ -10,6 +10,8 @@ public class SimulationResultsPanel extends JTabbedPane {
 
     private SimulationWinnersTab SimulationWinnersTab;
 
+    private ExportBallRollsPanel ExportBallRollsPanel;
+
     public SimulationResultsPanel(SimulationState State) {
         super();
 
@@ -17,9 +19,11 @@ public class SimulationResultsPanel extends JTabbedPane {
 
         SimulationDaysTab = new SimulationDaysTab(State);
         SimulationWinnersTab = new SimulationWinnersTab(State);
+        ExportBallRollsPanel = new ExportBallRollsPanel(State);
 
-        super.addTab("Balls Rolled", SimulationDaysTab);
-        super.addTab("Winners", SimulationWinnersTab);
+        super.addTab("Balls Rolled Per Round", SimulationDaysTab);
+        super.addTab("Winners Per Round", SimulationWinnersTab);
+        super.addTab("Export Balls Rolled Per Round", ExportBallRollsPanel);
     }
 
 }

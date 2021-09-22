@@ -1,13 +1,10 @@
 package io.neilshirsat.ui.simulation;
 
-import com.itextpdf.io.image.ImageDataFactory;
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfPage;
-import com.itextpdf.kernel.pdf.PdfReader;
-import com.itextpdf.kernel.pdf.PdfWriter;
-import com.itextpdf.kernel.pdf.xobject.PdfFormXObject;
-import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.Image;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.PdfContentByte;
+import com.itextpdf.text.pdf.PdfTemplate;
+import com.itextpdf.text.pdf.PdfWriter;
 import io.neilshirsat.components.filechooser.FileChooser;
 import io.neilshirsat.components.select.Select;
 import io.neilshirsat.components.textfield.TextField;
@@ -138,9 +135,23 @@ public class SimulationExportPanel extends JPanel {
                         OutputLocation.getTextField().getText()
                 );
             } catch (IOException e) {
-                e.printStackTrace();
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Internal Error",
+                        "Internal Error",
+                        JOptionPane.ERROR_MESSAGE
+                );
+                return;
             }
         }
+
+        JOptionPane.showMessageDialog(
+                null,
+                "The Generated Files Have Been Exported",
+                "Files Exports",
+                JOptionPane.INFORMATION_MESSAGE
+        );
+
     }
 
     public void generatePNG() {
@@ -171,10 +182,24 @@ public class SimulationExportPanel extends JPanel {
                             OutputLocation.getTextField().getText()
                     );
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "Internal Error",
+                            "Internal Error",
+                            JOptionPane.ERROR_MESSAGE
+                    );
+                    return;
                 }
             });
         }
+
+        JOptionPane.showMessageDialog(
+                null,
+                "The Generated Files Have Been Exported",
+                "Files Exports",
+                JOptionPane.INFORMATION_MESSAGE
+        );
+
     }
 
     public void generatePDF() {
@@ -184,16 +209,19 @@ public class SimulationExportPanel extends JPanel {
 
         ExecutorService Exc = Executors.newCachedThreadPool();
         File file = new File(OutputLocation.getTextField().getText() + "\\" + BingoName.getTextField().getText() + ".pdf");
-        PdfWriter Writer = null;
+        Document document = new Document(new com.itextpdf.text.Rectangle(750, 900));
+        PdfWriter writer = null;
         try {
-             Writer = new PdfWriter(file);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            writer = PdfWriter.getInstance(document, new FileOutputStream(file));
+        } catch (DocumentException | FileNotFoundException e) {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "The File Was Not Found, Check the Output Folder Path", "File Not Found",
+                    JOptionPane.ERROR_MESSAGE
+            );
+            return;
         }
-        assert Writer != null;
-        PdfDocument PDFDocument = new PdfDocument(Writer);
-        PDFDocument.addNewPage();
-        Document document = new Document(PDFDocument);
+        document.open();
 
         for (int j = 0; j < 5; j++) {
             for (int k = 0; k < 5; k++) {
@@ -201,49 +229,35 @@ public class SimulationExportPanel extends JPanel {
             }
         }
         for (int i = 0; i < State.getBingoBoardCount(); i++) {
-            int finalI = i;
-            Exc.submit(()->{
-                BingoPanel.getBingoState().setBingoBoardId(finalI + "");
-                for (int j = 0; j < 5; j++) {
-                    for (int k = 0; k < 5; k++) {
-                        BingoState.getBingoSquares()[j][k].setSquareNumber(State.getBingoBoardNumbers()[finalI][j][k] + "");
-                    }
+            BingoPanel.getBingoState().setBingoBoardId(i + "");
+            for (int j = 0; j < 5; j++) {
+                for (int k = 0; k < 5; k++) {
+                    BingoState.getBingoSquares()[j][k].setSquareNumber(State.getBingoBoardNumbers()[i][j][k] + "");
                 }
-                BingoPanel.doLayout();
-                BingoPanel.validate();
-                BufferedImage image = new BufferedImage(
-                        BingoPanel.getWidth(),
-                        BingoPanel.getHeight(),
-                        BufferedImage.TYPE_INT_ARGB
-                );
-                Graphics2D g2d = image.createGraphics();
-                g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON );
-                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                BingoPanel.printAll( g2d );
-                g2d.dispose();
+            }
+            BingoPanel.doLayout();
+            BingoPanel.validate();
 
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                System.out.println(baos);
-                try {
-                    ImageIO.write(image, "png", baos);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                Image BingoImage = new Image(ImageDataFactory.create(baos.toByteArray()));
-                System.out.println(BingoImage);
-                document.add(BingoImage);
-                //PDFDocument.addNewPage();
-
-            });
+            document.newPage();
+            assert writer != null;
+            PdfContentByte contentByte = writer.getDirectContent();
+            PdfTemplate template = contentByte.createTemplate(750, 900);
+            Graphics2D g2d = template.createGraphics(750, 900);
+            g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON );
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            BingoPanel.printAll( g2d );
+            g2d.dispose();
+            contentByte.addTemplate(template, 0, 0);
         }
 
         document.close();
-        System.out.println(document);
-        try {
-            Writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        JOptionPane.showMessageDialog(
+                null,
+                "The Generated Files Have Been Exported",
+                "Files Exports",
+                JOptionPane.INFORMATION_MESSAGE
+        );
 
     }
 

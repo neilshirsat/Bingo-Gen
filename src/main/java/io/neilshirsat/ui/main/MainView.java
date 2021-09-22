@@ -142,6 +142,7 @@ public class MainView extends JPanel {
             StartSimulationWindow = new StartSimulationWindow();
             StartSimulationWindow.setSimulationCancelHandler(()->{
                 SimulationButton.setEnabled(true);
+                StartSimulationWindow.setVisible(false);
             });
             StartSimulationWindow.setSimulationCloseHandler((int board, int age, int seed, int winner)->{
                 SimulationWindow = new SimulationWindow(PreviewWindow.getBingoState(), board, age, seed, winner);
@@ -186,7 +187,7 @@ public class MainView extends JPanel {
                 SimulationBingoTab
         );
         MainViewTabs.addTab(
-                "Info",
+                "Help",
                 InfoTab
         );
         MainViewTabs.addTab(

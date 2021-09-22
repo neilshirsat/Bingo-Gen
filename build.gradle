@@ -1,6 +1,16 @@
 plugins {
     id 'java'
     id 'application'
+    id "com.github.johnrengelman.shadow" version "7.0.0"
+}
+
+mainClassName = 'io.neilshirsat.Application'
+
+jar {
+    //noinspection GroovyAssignabilityCheck
+    manifest {
+        attributes 'Main-Class' : "$mainClassName"
+    }
 }
 
 group 'io.neilshirsat'
@@ -12,17 +22,13 @@ repositories {
 }
 
 application {
-    mainClass.set('io.neilshirsat.Application')
-    applicationDefaultJvmArgs = ['-Dgreeting.language=en']
-    executableDir = 'packaged_app'
 }
 
 dependencies {
     implementation 'com.formdev:flatlaf:1.5'
     implementation 'com.formdev:flatlaf-intellij-themes:1.5'
-    implementation 'com.vladsch.flexmark:flexmark-all:0.62.2'
     implementation 'org.knowm.xchart:xchart:3.8.1'
-    implementation 'com.itextpdf:itext7-core:7.1.16'
+    implementation 'com.itextpdf:itextpdf:5.0.6'
     implementation 'org.slf4j:slf4j-api:1.7.32'
     implementation 'org.slf4j:slf4j-simple:1.7.32'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'

@@ -26,9 +26,8 @@ public class NumberField extends JPanel {
         super.add( Label );
         super.add( NumberField );
 
-        if ( super.getLayout() instanceof FlowLayout fl ) {
-            fl.setAlignment( FlowLayout.LEFT );
-        }
+        FlowLayout fl = (FlowLayout)super.getLayout();
+        fl.setAlignment( FlowLayout.LEFT );
 
         super.setPreferredSize(new Dimension(250, 50));
         super.setMaximumSize(new Dimension(250, 50));

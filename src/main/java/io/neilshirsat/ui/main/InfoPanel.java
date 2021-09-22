@@ -8,10 +8,6 @@ import com.formdev.flatlaf.intellijthemes.FlatSolarizedDarkIJTheme;
 import com.formdev.flatlaf.intellijthemes.FlatSolarizedLightIJTheme;
 import com.formdev.flatlaf.intellijthemes.*;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.*;
-import com.vladsch.flexmark.html.HtmlRenderer;
-import com.vladsch.flexmark.parser.Parser;
-import com.vladsch.flexmark.util.ast.Node;
-import com.vladsch.flexmark.util.data.MutableDataSet;
 import io.neilshirsat.components.select.Select;
 
 import javax.swing.*;
@@ -39,6 +35,24 @@ public class InfoPanel extends JPanel {
 
         InfoText = new JTextPane();
         InfoText.setEditable(false);
+        InfoText.setText("""
+                **Remember to Give this Project a Star on Github at https://github.com/neilshirsat/Bingo-Gen
+                
+                Use the Style the Bingo Tab to customize the Colors of the Bingo. You can either select a Theme, customize the colors, shapes, text of the Board, or style each Bingo Square Individually. Use Customize Individual Bingo Square Styling to Customize each Individual Bingo Squares.
+                
+                The Preview Tab allows for Previewing the Bingo Style. (The Preview is not the Simulator, so all squares are Marked with Coordinates)
+                
+                The Start Simulation Tab Allows the User to Create a Simulation. When you create a simulation, a widget will popup asking for the Seed, Amount of Days, Amount of Cards, and Amount of Winners. Once the Simulation Window Pops Up the User can roll using the Roll Button, Change Cards using the Spinner, See a Visual of the Winners for Each Turn using the Winners Graph, and See the Results on the Table. After the Simulation Ends, the User will be able to see a Table of the Results, which can be exported, and Export the Bingo Board as a PNG, JPG(don't use JPG), or PDF. Remember, If you want to print out the PDF to a local printer, you need to set the print area of the printout.
+                
+                You can also Toggle the Application Theme in Settings.
+                
+                If You Enjoyed this, Please Share this With Your Friends.
+                
+                **If you want to build this project from source clone the repository at https://github.com/neilshirsat/Bingo-Gen and run the gradle commands you wish to to run the project, compile the java files to the classpath, and build the project
+                
+                Submit Issues at https://github.com/neilshirsat/Bingo-Gen
+                
+                """);
 
         InfoPanelLayout.setHorizontalGroup(InfoPanelLayout.createParallelGroup()
                 .addComponent(InfoText)

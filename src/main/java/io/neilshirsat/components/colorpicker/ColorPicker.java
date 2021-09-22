@@ -26,9 +26,8 @@ public class ColorPicker extends JPanel implements ActionListener {
         ColorPickerLabel = new JLabel(name + ":");
         ColorPickerButton = new JButton();
 
-        if ( super.getLayout() instanceof FlowLayout fl ) {
-            fl.setAlignment( FlowLayout.LEFT );
-        }
+        FlowLayout fl = (FlowLayout)super.getLayout();
+        fl.setAlignment( FlowLayout.LEFT );
 
         ColorPickerButton.setPreferredSize(new Dimension(25, 25));
         ColorPickerButton.setBackground(CurrentColor);
